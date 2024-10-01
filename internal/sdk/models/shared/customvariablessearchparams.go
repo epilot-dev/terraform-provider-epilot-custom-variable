@@ -5,7 +5,7 @@ package shared
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/internal/utils"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/internal/utils"
 )
 
 // CustomVariablesSearchParamsType - Variable type

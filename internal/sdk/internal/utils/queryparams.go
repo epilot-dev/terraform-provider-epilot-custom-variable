@@ -14,7 +14,7 @@ import (
 
 	"github.com/ericlagergren/decimal"
 
-	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/types"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/types"
 )
 
 func PopulateQueryParams(_ context.Context, req *http.Request, queryParams interface{}, globals interface{}) error {

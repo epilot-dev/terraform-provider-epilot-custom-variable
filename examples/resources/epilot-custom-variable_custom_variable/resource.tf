@@ -1,4 +1,4 @@
-resource "epilot-variable_custom_variable" "my_customvariable" {
+resource "epilot-custom-variable_custom_variable" "my_customvariable" {
   config = {
     # ...
   }

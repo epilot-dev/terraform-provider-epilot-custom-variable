@@ -1,8 +1,8 @@
 terraform {
   required_providers {
-    epilot-variable = {
-      source  = "epilot-dev/epilot-variable"
-      version = "0.10.5"
+    epilot-custom-variable = {
+      source  = "epilot-dev/epilot-custom-variable"
+      version = "0.10.6"
     }
   }
 }
@@ -10,14 +10,14 @@ terraform {
 variable "epilot_auth" {
   type = string
 }
-variable "template_variables_api_url" {
+variable "custom_variables_api_url" {
   type    = string
   default = "https://template-variables-api.dev.sls.epilot.io"
 }
 
-provider "epilot-variable" {
+provider "epilot-custom-variable" {
   epilot_auth = var.epilot_auth
-  server_url = var.template_variables_api_url
+  server_url = var.custom_variables_api_url
 }
 
 resource "epilot-variable_custom_variable" "my_variable" {

@@ -3,8 +3,8 @@
 package operations
 
 import (
-	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/internal/utils"
-	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/models/shared"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/internal/utils"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/shared"
 	"net/http"
 )
 

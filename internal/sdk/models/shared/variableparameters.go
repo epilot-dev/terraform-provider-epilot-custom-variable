@@ -3,7 +3,7 @@
 package shared
 
 import (
-	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/internal/utils"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/internal/utils"
 )
 
 // ContextData - If context data is avaialble, this data will be used for variable replace.

@@ -1,9 +1,9 @@
-# epilot-variable
+# epilot-custom-variable
 
-Developer-friendly & type-safe Terraform SDK specifically catered to leverage *epilot-variable* API.
+Developer-friendly & type-safe Terraform SDK specifically catered to leverage *epilot-custom-variable* API.
 
 <div align="left">
-    <a href="https://www.speakeasy.com/?utm_source=epilot-variable&utm_campaign=terraform"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
+    <a href="https://www.speakeasy.com/?utm_source=epilot-custom-variable&utm_campaign=terraform"><img src="https://custom-icon-badges.demolab.com/badge/-Built%20By%20Speakeasy-212015?style=for-the-badge&logoColor=FBE331&logo=speakeasy&labelColor=545454" /></a>
     <a href="https://opensource.org/licenses/MIT">
         <img src="https://img.shields.io/badge/License-MIT-blue.svg" style="width: 100px; height: 28px;" />
     </a>
@@ -40,14 +40,14 @@ To install this provider, copy and paste this code into your Terraform configura
 ```hcl
 terraform {
   required_providers {
-    epilot-variable = {
-      source  = "epilot-dev/epilot-variable"
-      version = "0.10.5"
+    epilot-custom-variable = {
+      source  = "epilot-dev/epilot-custom-variable"
+      version = "0.10.6"
     }
   }
 }
 
-provider "epilot-variable" {
+provider "epilot-custom-variable" {
   # Configuration options
 }
 ```
@@ -58,10 +58,10 @@ provider "epilot-variable" {
 
 ### Resources
 
-* [epilot-variable_custom_variable](docs/resources/custom_variable.md)
+* [epilot-custom-variable_custom_variable](docs/resources/custom_variable.md)
 ### Data Sources
 
-* [epilot-variable_custom_variable](docs/data-sources/custom_variable.md)
+* [epilot-custom-variable_custom_variable](docs/data-sources/custom_variable.md)
 <!-- End Available Resources and Data Sources [operations] -->
 
 <!-- Start Testing the provider locally [usage] -->
@@ -86,7 +86,7 @@ TF_REATTACH_PROVIDERS=... terraform apply
 
 Terraform allows you to use local provider builds by setting a `dev_overrides` block in a configuration file called `.terraformrc`. This block overrides all other configured installation methods.
 
-1. Execute `go build` to construct a binary called `terraform-provider-epilot-variable`
+1. Execute `go build` to construct a binary called `terraform-provider-epilot-custom-variable`
 2. Ensure that the `.terraformrc` file is configured with a `dev_overrides` section such that your local copy of terraform can see the provider binary
 
 Terraform searches for the `.terraformrc` file in your home directory and applies any configuration settings you set.
@@ -95,7 +95,7 @@ Terraform searches for the `.terraformrc` file in your home directory and applie
 provider_installation {
 
   dev_overrides {
-      "registry.terraform.io/epilot-dev/epilot-variable" = "<PATH>"
+      "registry.terraform.io/epilot-dev/epilot-custom-variable" = "<PATH>"
   }
 
   # For all other providers, install them directly from their origin provider
@@ -115,4 +115,4 @@ provider_installation {
 While we value open-source contributions to this terraform provider, this library is generated programmatically. Any manual changes added to internal files will be overwritten on the next generation.
 We look forward to hearing your feedback. Feel free to open a PR or an issue with a proof of concept and we'll do our best to include it in a future release. 
 
-### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=epilot-variable&utm_campaign=terraform)
+### SDK Created by [Speakeasy](https://www.speakeasy.com/?utm_source=epilot-custom-variable&utm_campaign=terraform)

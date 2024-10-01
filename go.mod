@@ -1,4 +1,4 @@
-module github.com/epilot-dev/terraform-provider-epilot-variable
+module github.com/epilot-dev/terraform-provider-epilot-custom-variable
 
 go 1.21
 

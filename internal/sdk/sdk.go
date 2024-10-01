@@ -5,10 +5,10 @@ package sdk
 import (
 	"context"
 	"fmt"
-	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/internal/hooks"
-	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/internal/utils"
-	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/models/shared"
-	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/retry"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/internal/hooks"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/internal/utils"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/shared"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/retry"
 	"net/http"
 	"time"
 )
@@ -151,7 +151,7 @@ func New(opts ...SDKOption) *SDK {
 			OpenAPIDocVersion: "1.0.0",
 			SDKVersion:        "0.0.1",
 			GenVersion:        "2.428.1",
-			UserAgent:         "speakeasy-sdk/go 0.0.1 2.428.1 1.0.0 github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk",
+			UserAgent:         "speakeasy-sdk/go 0.0.1 2.428.1 1.0.0 github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk",
 			Hooks:             hooks.New(),
 		},
 	}

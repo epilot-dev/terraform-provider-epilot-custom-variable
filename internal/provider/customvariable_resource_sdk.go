@@ -3,8 +3,8 @@
 package provider
 
 import (
-	tfTypes "github.com/epilot-dev/terraform-provider-epilot-variable/internal/provider/types"
-	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/models/shared"
+	tfTypes "github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/provider/types"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
