@@ -7,7 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/cenkalti/backoff/v4"
-	"github.com/epilot-dev/terraform-provider-epilot-product/internal/sdk/retry"
+	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/retry"
 	"net/http"
 	"net/url"
 	"strconv"

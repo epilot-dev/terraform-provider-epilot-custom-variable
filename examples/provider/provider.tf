@@ -1,12 +1,12 @@
 terraform {
   required_providers {
-    epilot-product = {
-      source  = "epilot-dev/epilot-product"
+    epilot-variable = {
+      source  = "epilot-dev/epilot-variable"
       version = "0.10.5"
     }
   }
 }
 
-provider "epilot-product" {
+provider "epilot-variable" {
   # Configuration options
 }

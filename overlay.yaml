@@ -1,6 +1,6 @@
 overlay: 1.0.0
 info:
-  title: Speakeasy overlay for epilot product API
+  title: Speakeasy overlay for epilot custom variables API
   version: 0.0.1
 actions:
   - target: $
@@ -16,53 +16,19 @@ actions:
           - 5XX
         retryConnectionErrors: true
 
-  # Price
-  - target: $["paths"]["/v1/price"]["post"]
+  # Custom variables
+  - target: $["paths"]["/v1/custom-variables"]["post"]
     update:
-      x-speakeasy-entity-operation: Price#create
-  - target: $["paths"]["/v1/price/{priceId}"]["get"]
+      x-speakeasy-entity-operation: CustomVariable#create
+  - target: $["paths"]["/v1/custom-variables/{id}"]["get"]
     update:
-      x-speakeasy-entity-operation: Price#get
-  - target: $["paths"]["/v1/price/{priceId}"]["patch"]
+      x-speakeasy-entity-operation: CustomVariable#get
+  - target: $["paths"]["/v1/custom-variables/{id}"]["patch"]
     update:
-      x-speakeasy-entity-operation: Price#update
-  - target: $["paths"]["/v1/price/{priceId}"]["delete"]
+      x-speakeasy-entity-operation: CustomVariable#update
+  - target: $["paths"]["/v1/custom-variables/{id}"]["delete"]
     update:
-      x-speakeasy-entity-operation: Price#delete
-  - target: $["components"]["parameters"]["PriceIdPathParam"]
-    update:
-      x-speakeasy-match: id
-
-  # Tax
-  - target: $["paths"]["/v1/tax"]["post"]
-    update:
-      x-speakeasy-entity-operation: Tax#create
-  - target: $["paths"]["/v1/tax/{taxId}"]["get"]
-    update:
-      x-speakeasy-entity-operation: Tax#get
-  - target: $["paths"]["/v1/tax/{taxId}"]["patch"]
-    update:
-      x-speakeasy-entity-operation: Tax#update
-  - target: $["paths"]["/v1/tax/{taxId}"]["delete"]
-    update:
-      x-speakeasy-entity-operation: Tax#delete
-  - target: $["components"]["parameters"]["TaxIdPathParam"]
-    update:
-      x-speakeasy-match: id
-
-  # Product
-  - target: $["paths"]["/v1/product"]["post"]
-    update:
-      x-speakeasy-entity-operation: Product#create
-  - target: $["paths"]["/v1/product/{productId}"]["get"]
-    update:
-      x-speakeasy-entity-operation: Product#get
-  - target: $["paths"]["/v1/product/{productId}"]["patch"]
-    update:
-      x-speakeasy-entity-operation: Product#update
-  - target: $["paths"]["/v1/product/{productId}"]["delete"]
-    update:
-      x-speakeasy-entity-operation: Product#delete
-  - target: $["components"]["parameters"]["ProductIdPathParam"]
-    update:
-      x-speakeasy-match: id
+      x-speakeasy-entity-operation: CustomVariable#delete
+  # - target: $["components"]["parameters"]["CustomVariableIdPathParam"]
+  #   update:
+  #     x-speakeasy-match: id

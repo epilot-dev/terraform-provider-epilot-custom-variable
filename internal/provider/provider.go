@@ -4,8 +4,8 @@ package provider
 
 import (
 	"context"
-	"github.com/epilot-dev/terraform-provider-epilot-product/internal/sdk"
-	"github.com/epilot-dev/terraform-provider-epilot-product/internal/sdk/models/shared"
+	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk"
+	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/provider"
 	"github.com/hashicorp/terraform-plugin-framework/provider/schema"
@@ -14,32 +14,33 @@ import (
 	"net/http"
 )
 
-var _ provider.Provider = &EpilotProductProvider{}
+var _ provider.Provider = &EpilotVariableProvider{}
 
-type EpilotProductProvider struct {
+type EpilotVariableProvider struct {
 	// version is set to the provider version on release, "dev" when the
 	// provider is built and ran locally, and "test" when running acceptance
 	// testing.
 	version string
 }
 
-// EpilotProductProviderModel describes the provider data model.
-type EpilotProductProviderModel struct {
+// EpilotVariableProviderModel describes the provider data model.
+type EpilotVariableProviderModel struct {
 	ServerURL  types.String `tfsdk:"server_url"`
 	EpilotAuth types.String `tfsdk:"epilot_auth"`
 	EpilotOrg  types.String `tfsdk:"epilot_org"`
 }
 
-func (p *EpilotProductProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
-	resp.TypeName = "epilot-product"
+func (p *EpilotVariableProvider) Metadata(ctx context.Context, req provider.MetadataRequest, resp *provider.MetadataResponse) {
+	resp.TypeName = "epilot-variable"
 	resp.Version = p.version
 }
 
-func (p *EpilotProductProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
+func (p *EpilotVariableProvider) Schema(ctx context.Context, req provider.SchemaRequest, resp *provider.SchemaResponse) {
 	resp.Schema = schema.Schema{
+		Description: `Template Variables API: API to provide variables for email and document templates.`,
 		Attributes: map[string]schema.Attribute{
 			"server_url": schema.StringAttribute{
-				MarkdownDescription: "Server URL (defaults to https://product.sls.epilot.io)",
+				MarkdownDescription: "Server URL (defaults to https://template-variables-api.sls.epilot.io)",
 				Optional:            true,
 				Required:            false,
 			},
@@ -55,8 +56,8 @@ func (p *EpilotProductProvider) Schema(ctx context.Context, req provider.SchemaR
 	}
 }
 
-func (p *EpilotProductProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
-	var data EpilotProductProviderModel
+func (p *EpilotVariableProvider) Configure(ctx context.Context, req provider.ConfigureRequest, resp *provider.ConfigureResponse) {
+	var data EpilotVariableProviderModel
 
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
 
@@ -67,7 +68,7 @@ func (p *EpilotProductProvider) Configure(ctx context.Context, req provider.Conf
 	ServerURL := data.ServerURL.ValueString()
 
 	if ServerURL == "" {
-		ServerURL = "https://product.sls.epilot.io"
+		ServerURL = "https://template-variables-api.sls.epilot.io"
 	}
 
 	epilotAuth := new(string)
@@ -98,25 +99,21 @@ func (p *EpilotProductProvider) Configure(ctx context.Context, req provider.Conf
 	resp.ResourceData = client
 }
 
-func (p *EpilotProductProvider) Resources(ctx context.Context) []func() resource.Resource {
+func (p *EpilotVariableProvider) Resources(ctx context.Context) []func() resource.Resource {
 	return []func() resource.Resource{
-		NewPriceResource,
-		NewProductResource,
-		NewTaxResource,
+		NewCustomVariableResource,
 	}
 }
 
-func (p *EpilotProductProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
+func (p *EpilotVariableProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
 	return []func() datasource.DataSource{
-		NewPriceDataSource,
-		NewProductDataSource,
-		NewTaxDataSource,
+		NewCustomVariableDataSource,
 	}
 }
 
 func New(version string) func() provider.Provider {
 	return func() provider.Provider {
-		return &EpilotProductProvider{
+		return &EpilotVariableProvider{
 			version: version,
 		}
 	}

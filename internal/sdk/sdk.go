@@ -5,18 +5,17 @@ package sdk
 import (
 	"context"
 	"fmt"
-	"github.com/epilot-dev/terraform-provider-epilot-product/internal/sdk/internal/hooks"
-	"github.com/epilot-dev/terraform-provider-epilot-product/internal/sdk/internal/utils"
-	"github.com/epilot-dev/terraform-provider-epilot-product/internal/sdk/models/shared"
-	"github.com/epilot-dev/terraform-provider-epilot-product/internal/sdk/retry"
+	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/internal/hooks"
+	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/internal/utils"
+	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/models/shared"
+	"github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk/retry"
 	"net/http"
 	"time"
 )
 
 // ServerList contains the list of servers available to the SDK
 var ServerList = []string{
-	// Production server
-	"https://product.sls.epilot.io",
+	"https://template-variables-api.sls.epilot.io",
 }
 
 // HTTPClient provides an interface for suplying the SDK with a custom HTTP client
@@ -68,13 +67,11 @@ func (c *sdkConfiguration) GetServerDetails() (string, map[string]string) {
 	return ServerList[c.ServerIndex], nil
 }
 
+// SDK - Template Variables API: API to provide variables for email and document templates.
 type SDK struct {
-	// Price operations
-	Price *Price
-	// Product operations
-	Product *Product
-	// Tax operations
-	Tax *Tax
+	// Variables
+	Variables       *Variables
+	CustomVariables *CustomVariables
 
 	sdkConfiguration sdkConfiguration
 }
@@ -153,8 +150,8 @@ func New(opts ...SDKOption) *SDK {
 			Language:          "go",
 			OpenAPIDocVersion: "1.0.0",
 			SDKVersion:        "0.0.1",
-			GenVersion:        "2.415.6",
-			UserAgent:         "speakeasy-sdk/go 0.0.1 2.415.6 1.0.0 github.com/epilot-dev/terraform-provider-epilot-product/internal/sdk",
+			GenVersion:        "2.428.1",
+			UserAgent:         "speakeasy-sdk/go 0.0.1 2.428.1 1.0.0 github.com/epilot-dev/terraform-provider-epilot-variable/internal/sdk",
 			Hooks:             hooks.New(),
 		},
 	}
@@ -174,11 +171,9 @@ func New(opts ...SDKOption) *SDK {
 		sdk.sdkConfiguration.ServerURL = serverURL
 	}
 
-	sdk.Price = newPrice(sdk.sdkConfiguration)
+	sdk.Variables = newVariables(sdk.sdkConfiguration)
 
-	sdk.Product = newProduct(sdk.sdkConfiguration)
-
-	sdk.Tax = newTax(sdk.sdkConfiguration)
+	sdk.CustomVariables = newCustomVariables(sdk.sdkConfiguration)
 
 	return sdk
 }

@@ -4,7 +4,7 @@ package shared
 
 type Security struct {
 	EpilotAuth *string `security:"scheme,type=http,subtype=bearer,name=Authorization"`
-	EpilotOrg  *string `security:"scheme,type=apiKey,subtype=header,name=x-epilot-org-id"`
+	EpilotOrg  *string `security:"scheme,type=apiKey,subtype=header,name=x-ivy-org-id"`
 }
 
 func (o *Security) GetEpilotAuth() *string {
