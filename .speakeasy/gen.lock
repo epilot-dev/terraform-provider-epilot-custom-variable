@@ -1,12 +1,15 @@
 lockVersion: 2.0.0
 id: 45f3018a-30de-4d91-ab55-1ad3f43bb6de
 management:
-  docChecksum: bdfe61952033bd2227060e206083b4aa
+  docChecksum: 19642ac9925cfbd898583408571f7a7f
   docVersion: 1.0.0
   speakeasyVersion: 1.405.6
   generationVersion: 2.428.1
-  releaseVersion: 0.10.6
-  configChecksum: eee95f8fdd1db73006a00153b53647bb
+  releaseVersion: 1.0.0
+  configChecksum: d3cadf6e5bf9699941b7688d74cabc9d
+  repoURL: https://github.com/epilot-dev/terraform-provider-epilot-custom-variable.git
+  repoSubDirectory: .
+  published: true
 features:
   terraform:
     additionalDependencies: 0.1.0
@@ -16,15 +19,11 @@ features:
     globalSecurity: 2.81.8
     globalServerURLs: 2.82.1
     nullables: 0.0.0
-    retries: 2.81.1
 generatedFiles:
   - .gitattributes
   - USAGE.md
   - examples/README.md
-  - examples/data-sources/epilot-custom-variable_custom_variable/data-source.tf
   - examples/provider/provider.tf
-  - examples/resources/epilot-custom-variable_custom_variable/import.sh
-  - examples/resources/epilot-custom-variable_custom_variable/resource.tf
   - go.mod
   - go.sum
   - internal/planmodifiers/boolplanmodifier/suppress_diff.go
@@ -37,10 +36,6 @@ generatedFiles:
   - internal/planmodifiers/setplanmodifier/suppress_diff.go
   - internal/planmodifiers/stringplanmodifier/suppress_diff.go
   - internal/planmodifiers/utils/state_check.go
-  - internal/provider/customvariable_data_source.go
-  - internal/provider/customvariable_data_source_sdk.go
-  - internal/provider/customvariable_resource.go
-  - internal/provider/customvariable_resource_sdk.go
   - internal/provider/provider.go
   - internal/provider/reflect/diags.go
   - internal/provider/reflect/doc.go
@@ -56,7 +51,6 @@ generatedFiles:
   - internal/provider/reflect/primitive.go
   - internal/provider/reflect/slice.go
   - internal/provider/reflect/struct.go
-  - internal/provider/types/config.go
   - internal/provider/utils.go
   - internal/sdk/.gitattributes
   - internal/sdk/.gitignore

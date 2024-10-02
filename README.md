@@ -42,7 +42,7 @@ terraform {
   required_providers {
     epilot-custom-variable = {
       source  = "epilot-dev/epilot-custom-variable"
-      version = "0.10.6"
+      version = "1.0.0"
     }
   }
 }
@@ -58,10 +58,7 @@ provider "epilot-custom-variable" {
 
 ### Resources
 
-* [epilot-custom-variable_custom_variable](docs/resources/custom_variable.md)
 ### Data Sources
-
-* [epilot-custom-variable_custom_variable](docs/data-sources/custom_variable.md)
 <!-- End Available Resources and Data Sources [operations] -->
 
 <!-- Start Testing the provider locally [usage] -->

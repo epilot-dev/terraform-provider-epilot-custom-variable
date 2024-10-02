@@ -100,15 +100,11 @@ func (p *EpilotCustomVariableProvider) Configure(ctx context.Context, req provid
 }
 
 func (p *EpilotCustomVariableProvider) Resources(ctx context.Context) []func() resource.Resource {
-	return []func() resource.Resource{
-		NewCustomVariableResource,
-	}
+	return []func() resource.Resource{}
 }
 
 func (p *EpilotCustomVariableProvider) DataSources(ctx context.Context) []func() datasource.DataSource {
-	return []func() datasource.DataSource{
-		NewCustomVariableDataSource,
-	}
+	return []func() datasource.DataSource{}
 }
 
 func New(version string) func() provider.Provider {
