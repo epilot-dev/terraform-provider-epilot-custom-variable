@@ -11,8 +11,9 @@ import (
 type CustomVariableType string
 
 const (
-	CustomVariableTypeOrderTable CustomVariableType = "order_table"
-	CustomVariableTypeCustom     CustomVariableType = "custom"
+	CustomVariableTypeOrderTable  CustomVariableType = "order_table"
+	CustomVariableTypeCustom      CustomVariableType = "custom"
+	CustomVariableTypeJourneyLink CustomVariableType = "journey_link"
 )
 
 func (e CustomVariableType) ToPointer() *CustomVariableType {
@@ -27,6 +28,8 @@ func (e *CustomVariableType) UnmarshalJSON(data []byte) error {
 	case "order_table":
 		fallthrough
 	case "custom":
+		fallthrough
+	case "journey_link":
 		*e = CustomVariableType(v)
 		return nil
 	default:

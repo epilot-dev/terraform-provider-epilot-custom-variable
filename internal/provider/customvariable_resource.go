@@ -161,11 +161,12 @@ func (r *CustomVariableResource) Schema(ctx context.Context, req resource.Schema
 					stringplanmodifier.RequiresReplaceIfConfigured(),
 					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
 				},
-				Description: `Custom variable type. must be one of ["order_table", "custom"]; Requires replacement if changed.`,
+				Description: `Custom variable type. must be one of ["order_table", "custom", "journey_link"]; Requires replacement if changed.`,
 				Validators: []validator.String{
 					stringvalidator.OneOf(
 						"order_table",
 						"custom",
+						"journey_link",
 					),
 				},
 			},
@@ -246,6 +247,11 @@ func (r *CustomVariableResource) Create(ctx context.Context, req resource.Create
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
 	}
+	if !(res.CustomVariable != nil) {
+		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
+		return
+	}
+	data.RefreshFromSharedCustomVariable(res.CustomVariable)
 	refreshPlan(ctx, plan, &data, resp.Diagnostics)
 
 	// Save updated data into Terraform state

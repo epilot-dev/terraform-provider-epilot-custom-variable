@@ -270,7 +270,7 @@ func (s *CustomVariables) CreateCustomVariable(ctx context.Context, request *sha
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
-	req.Header.Set("Accept", "*/*")
+	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	req.Header.Set("Content-Type", reqContentType)
 
@@ -387,8 +387,30 @@ func (s *CustomVariables) CreateCustomVariable(ctx context.Context, request *sha
 
 	switch {
 	case httpRes.StatusCode == 201:
-		fallthrough
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := getRawBody()
+			if err != nil {
+				return nil, err
+			}
+
+			var out shared.CustomVariable
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			res.CustomVariable = &out
+		default:
+			rawBody, err := getRawBody()
+			if err != nil {
+				return nil, err
+			}
+
+			return nil, errors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 403:
+		fallthrough
+	case httpRes.StatusCode == 409:
 	default:
 		rawBody, err := getRawBody()
 		if err != nil {
@@ -650,7 +672,7 @@ func (s *CustomVariables) UpdateCustomVariable(ctx context.Context, request oper
 	if err != nil {
 		return nil, fmt.Errorf("error creating request: %w", err)
 	}
-	req.Header.Set("Accept", "*/*")
+	req.Header.Set("Accept", "application/json")
 	req.Header.Set("User-Agent", s.sdkConfiguration.UserAgent)
 	req.Header.Set("Content-Type", reqContentType)
 
@@ -767,8 +789,30 @@ func (s *CustomVariables) UpdateCustomVariable(ctx context.Context, request oper
 
 	switch {
 	case httpRes.StatusCode == 200:
-		fallthrough
+		switch {
+		case utils.MatchContentType(httpRes.Header.Get("Content-Type"), `application/json`):
+			rawBody, err := getRawBody()
+			if err != nil {
+				return nil, err
+			}
+
+			var out shared.CustomVariable
+			if err := utils.UnmarshalJsonFromResponseBody(bytes.NewBuffer(rawBody), &out, ""); err != nil {
+				return nil, err
+			}
+
+			res.CustomVariable = &out
+		default:
+			rawBody, err := getRawBody()
+			if err != nil {
+				return nil, err
+			}
+
+			return nil, errors.NewSDKError(fmt.Sprintf("unknown content-type received: %s", httpRes.Header.Get("Content-Type")), httpRes.StatusCode, string(rawBody), httpRes)
+		}
 	case httpRes.StatusCode == 403:
+		fallthrough
+	case httpRes.StatusCode == 409:
 	default:
 		rawBody, err := getRawBody()
 		if err != nil {

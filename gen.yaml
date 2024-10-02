@@ -1,5 +1,6 @@
 configVersion: 2.0.0
 generation:
+  baseServerUrl: https://template-variables-api.sls.epilot.io
   sdkClassName: SDK
   maintainOpenAPIOrder: true
   usageSnippets:
@@ -29,7 +30,7 @@ go:
   outputModelSuffix: output
   packageName: openapi
 terraform:
-  version: 1.0.0
+  version: 1.0.1
   additionalDataSources: []
   additionalDependencies: {}
   additionalResources: []

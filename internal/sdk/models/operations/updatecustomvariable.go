@@ -34,6 +34,8 @@ type UpdateCustomVariableResponse struct {
 	StatusCode int
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
+	// Success
+	CustomVariable *shared.CustomVariable
 }
 
 func (o *UpdateCustomVariableResponse) GetContentType() string {
@@ -55,4 +57,11 @@ func (o *UpdateCustomVariableResponse) GetRawResponse() *http.Response {
 		return nil
 	}
 	return o.RawResponse
+}
+
+func (o *UpdateCustomVariableResponse) GetCustomVariable() *shared.CustomVariable {
+	if o == nil {
+		return nil
+	}
+	return o.CustomVariable
 }

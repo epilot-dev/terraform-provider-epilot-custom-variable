@@ -12,8 +12,9 @@ import (
 type CustomVariablesSearchParamsType string
 
 const (
-	CustomVariablesSearchParamsTypeOrderTable CustomVariablesSearchParamsType = "order_table"
-	CustomVariablesSearchParamsTypeCustom     CustomVariablesSearchParamsType = "custom"
+	CustomVariablesSearchParamsTypeOrderTable  CustomVariablesSearchParamsType = "order_table"
+	CustomVariablesSearchParamsTypeCustom      CustomVariablesSearchParamsType = "custom"
+	CustomVariablesSearchParamsTypeJourneyLink CustomVariablesSearchParamsType = "journey_link"
 )
 
 func (e CustomVariablesSearchParamsType) ToPointer() *CustomVariablesSearchParamsType {
@@ -28,6 +29,8 @@ func (e *CustomVariablesSearchParamsType) UnmarshalJSON(data []byte) error {
 	case "order_table":
 		fallthrough
 	case "custom":
+		fallthrough
+	case "journey_link":
 		*e = CustomVariablesSearchParamsType(v)
 		return nil
 	default:
