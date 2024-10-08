@@ -3,10 +3,10 @@ id: 45f3018a-30de-4d91-ab55-1ad3f43bb6de
 management:
   docChecksum: 19642ac9925cfbd898583408571f7a7f
   docVersion: 1.0.0
-  speakeasyVersion: 1.405.6
-  generationVersion: 2.428.1
-  releaseVersion: 1.0.0
-  configChecksum: d3cadf6e5bf9699941b7688d74cabc9d
+  speakeasyVersion: 1.411.1
+  generationVersion: 2.436.1
+  releaseVersion: 1.0.1
+  configChecksum: edfe49d70e18ced76428944581a5bb16
   repoURL: https://github.com/epilot-dev/terraform-provider-epilot-custom-variable.git
   repoSubDirectory: .
   published: true
@@ -14,7 +14,7 @@ features:
   terraform:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.4
-    core: 3.24.15
+    core: 3.24.16
     envVarSecurityUsage: 0.1.0
     globalSecurity: 2.81.8
     globalServerURLs: 2.82.1
