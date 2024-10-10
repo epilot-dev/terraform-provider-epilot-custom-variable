@@ -27,7 +27,7 @@ data "epilot-custom-variable_custom_variable" "my_customvariable" {
 
 ### Read-Only
 
-- `config` (Attributes) Variable configuration (see [below for nested schema](#nestedatt--config))
+- `config` (String) Parsed as JSON.
 - `created_at` (String) Creation time
 - `created_by` (String) Created by
 - `helper_logic` (String) The helper function logic
@@ -39,6 +39,3 @@ data "epilot-custom-variable_custom_variable" "my_customvariable" {
 - `type` (String) Custom variable type
 - `updated_at` (String) Last update time
 - `updated_by` (String) Updated by
-
-<a id="nestedatt--config"></a>
-### Nested Schema for `config`

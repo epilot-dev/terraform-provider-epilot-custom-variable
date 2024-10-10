@@ -37,10 +37,6 @@ func (e *CustomVariableType) UnmarshalJSON(data []byte) error {
 	}
 }
 
-// Config - Variable configuration
-type Config struct {
-}
-
 type CustomVariable struct {
 	// ID
 	ID *string `json:"id,omitempty"`
@@ -56,8 +52,6 @@ type CustomVariable struct {
 	HelperParams []string `json:"helper_params,omitempty"`
 	// The helper function logic
 	HelperLogic *string `json:"helper_logic,omitempty"`
-	// Variable configuration
-	Config *Config `json:"config,omitempty"`
 	// Handlebar template that used to generate the variable content
 	Template *string `json:"template,omitempty"`
 	// Creation time
@@ -68,6 +62,7 @@ type CustomVariable struct {
 	UpdatedAt *string `json:"updated_at,omitempty"`
 	// Updated by
 	UpdatedBy *string `json:"updated_by,omitempty"`
+	Config    any     `json:"config,omitempty"`
 }
 
 func (o *CustomVariable) GetID() *string {
@@ -119,13 +114,6 @@ func (o *CustomVariable) GetHelperLogic() *string {
 	return o.HelperLogic
 }
 
-func (o *CustomVariable) GetConfig() *Config {
-	if o == nil {
-		return nil
-	}
-	return o.Config
-}
-
 func (o *CustomVariable) GetTemplate() *string {
 	if o == nil {
 		return nil
@@ -159,4 +147,11 @@ func (o *CustomVariable) GetUpdatedBy() *string {
 		return nil
 	}
 	return o.UpdatedBy
+}
+
+func (o *CustomVariable) GetConfig() any {
+	if o == nil {
+		return nil
+	}
+	return o.Config
 }

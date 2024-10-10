@@ -14,9 +14,7 @@ CustomVariable Resource
 
 ```terraform
 resource "epilot-custom-variable_custom_variable" "my_customvariable" {
-  config = {
-    # ...
-  }
+  config       = "{ \"see\": \"documentation\" }"
   created_at   = "2022-04-19T12:41:43.662Z"
   created_by   = 100042
   helper_logic = "return param1 * param2;"
@@ -41,7 +39,7 @@ resource "epilot-custom-variable_custom_variable" "my_customvariable" {
 
 ### Optional
 
-- `config` (Attributes) Variable configuration. Requires replacement if changed. (see [below for nested schema](#nestedatt--config))
+- `config` (String) Requires replacement if changed.; Parsed as JSON.
 - `created_at` (String) Creation time. Requires replacement if changed.
 - `created_by` (String) Created by. Requires replacement if changed.
 - `helper_logic` (String) The helper function logic. Requires replacement if changed.
@@ -54,9 +52,6 @@ resource "epilot-custom-variable_custom_variable" "my_customvariable" {
 - `type` (String) Custom variable type. must be one of ["order_table", "custom", "journey_link"]; Requires replacement if changed.
 - `updated_at` (String) Last update time. Requires replacement if changed.
 - `updated_by` (String) Updated by. Requires replacement if changed.
-
-<a id="nestedatt--config"></a>
-### Nested Schema for `config`
 
 ## Import
 

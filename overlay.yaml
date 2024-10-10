@@ -29,6 +29,8 @@ actions:
   - target: $["paths"]["/v1/custom-variables/{id}"]["delete"]
     update:
       x-speakeasy-entity-operation: CustomVariable#delete
-  # - target: $["components"]["parameters"]["CustomVariableIdPathParam"]
-  #   update:
-  #     x-speakeasy-match: id
+  - target: $["components"]["schemas"]["CustomVariable"]["properties"]["config"]
+    remove: true
+  - target: $["components"]["schemas"]["CustomVariable"]["properties"]
+    update:
+      config: {}

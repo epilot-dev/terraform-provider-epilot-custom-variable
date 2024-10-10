@@ -1,7 +1,5 @@
 resource "epilot-custom-variable_custom_variable" "my_customvariable" {
-  config = {
-    # ...
-  }
+  config       = "{ \"see\": \"documentation\" }"
   created_at   = "2022-04-19T12:41:43.662Z"
   created_by   = 100042
   helper_logic = "return param1 * param2;"

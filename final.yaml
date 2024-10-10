@@ -560,11 +560,6 @@ components:
           type: string
           description: The helper function logic
           example: return param1 * param2;
-        config:
-          type: object
-          description: Variable configuration
-          example:
-            $ref: "#/components/examples/TableConfig/value"
         template:
           type: string
           description: Handlebar template that used to generate the variable content
@@ -691,6 +686,7 @@ components:
           type: string
           description: Updated by
           example: 100042
+        config: {}
   examples:
     ExampleMain:
       value:

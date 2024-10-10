@@ -5,7 +5,6 @@ package provider
 import (
 	"context"
 	"fmt"
-	tfTypes "github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/provider/types"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/operations"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
@@ -29,19 +28,19 @@ type CustomVariableDataSource struct {
 
 // CustomVariableDataSourceModel describes the data model.
 type CustomVariableDataSourceModel struct {
-	Config       *tfTypes.Config `tfsdk:"config"`
-	CreatedAt    types.String    `tfsdk:"created_at"`
-	CreatedBy    types.String    `tfsdk:"created_by"`
-	HelperLogic  types.String    `tfsdk:"helper_logic"`
-	HelperParams []types.String  `tfsdk:"helper_params"`
-	ID           types.String    `tfsdk:"id"`
-	Key          types.String    `tfsdk:"key"`
-	Name         types.String    `tfsdk:"name"`
-	Tags         []types.String  `tfsdk:"tags"`
-	Template     types.String    `tfsdk:"template"`
-	Type         types.String    `tfsdk:"type"`
-	UpdatedAt    types.String    `tfsdk:"updated_at"`
-	UpdatedBy    types.String    `tfsdk:"updated_by"`
+	Config       types.String   `tfsdk:"config"`
+	CreatedAt    types.String   `tfsdk:"created_at"`
+	CreatedBy    types.String   `tfsdk:"created_by"`
+	HelperLogic  types.String   `tfsdk:"helper_logic"`
+	HelperParams []types.String `tfsdk:"helper_params"`
+	ID           types.String   `tfsdk:"id"`
+	Key          types.String   `tfsdk:"key"`
+	Name         types.String   `tfsdk:"name"`
+	Tags         []types.String `tfsdk:"tags"`
+	Template     types.String   `tfsdk:"template"`
+	Type         types.String   `tfsdk:"type"`
+	UpdatedAt    types.String   `tfsdk:"updated_at"`
+	UpdatedBy    types.String   `tfsdk:"updated_by"`
 }
 
 // Metadata returns the data source type name.
@@ -55,9 +54,9 @@ func (r *CustomVariableDataSource) Schema(ctx context.Context, req datasource.Sc
 		MarkdownDescription: "CustomVariable DataSource",
 
 		Attributes: map[string]schema.Attribute{
-			"config": schema.SingleNestedAttribute{
+			"config": schema.StringAttribute{
 				Computed:    true,
-				Description: `Variable configuration`,
+				Description: `Parsed as JSON.`,
 			},
 			"created_at": schema.StringAttribute{
 				Computed:    true,

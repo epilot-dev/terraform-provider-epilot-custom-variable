@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 45f3018a-30de-4d91-ab55-1ad3f43bb6de
 management:
-  docChecksum: 6c94ad8e3e080570f4cc4e7acc8299f5
+  docChecksum: b2a8ea3da2c0564f2ac23b47baa1503a
   docVersion: 1.0.0
   speakeasyVersion: 1.405.9
   generationVersion: 2.429.0
-  releaseVersion: 1.0.1
-  configChecksum: eaad5d2fe7a3aa72234da152f45e42e0
+  releaseVersion: 1.0.2
+  configChecksum: 8385635e0dd549d2a448fcb26d4b9605
 features:
   terraform:
     additionalDependencies: 0.1.0
@@ -56,7 +56,6 @@ generatedFiles:
   - internal/provider/reflect/primitive.go
   - internal/provider/reflect/slice.go
   - internal/provider/reflect/struct.go
-  - internal/provider/types/config.go
   - internal/provider/utils.go
   - internal/sdk/.gitattributes
   - internal/sdk/.gitignore

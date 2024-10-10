@@ -6,17 +6,15 @@ import (
 	"context"
 	"fmt"
 	speakeasy_listplanmodifier "github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/planmodifiers/listplanmodifier"
-	speakeasy_objectplanmodifier "github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/planmodifiers/objectplanmodifier"
 	speakeasy_stringplanmodifier "github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/planmodifiers/stringplanmodifier"
-	tfTypes "github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/provider/types"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/operations"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/validators"
 	"github.com/hashicorp/terraform-plugin-framework-validators/stringvalidator"
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/listplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/resource/schema/objectplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/schema/validator"
@@ -39,19 +37,19 @@ type CustomVariableResource struct {
 
 // CustomVariableResourceModel describes the resource data model.
 type CustomVariableResourceModel struct {
-	Config       *tfTypes.Config `tfsdk:"config"`
-	CreatedAt    types.String    `tfsdk:"created_at"`
-	CreatedBy    types.String    `tfsdk:"created_by"`
-	HelperLogic  types.String    `tfsdk:"helper_logic"`
-	HelperParams []types.String  `tfsdk:"helper_params"`
-	ID           types.String    `tfsdk:"id"`
-	Key          types.String    `tfsdk:"key"`
-	Name         types.String    `tfsdk:"name"`
-	Tags         []types.String  `tfsdk:"tags"`
-	Template     types.String    `tfsdk:"template"`
-	Type         types.String    `tfsdk:"type"`
-	UpdatedAt    types.String    `tfsdk:"updated_at"`
-	UpdatedBy    types.String    `tfsdk:"updated_by"`
+	Config       types.String   `tfsdk:"config"`
+	CreatedAt    types.String   `tfsdk:"created_at"`
+	CreatedBy    types.String   `tfsdk:"created_by"`
+	HelperLogic  types.String   `tfsdk:"helper_logic"`
+	HelperParams []types.String `tfsdk:"helper_params"`
+	ID           types.String   `tfsdk:"id"`
+	Key          types.String   `tfsdk:"key"`
+	Name         types.String   `tfsdk:"name"`
+	Tags         []types.String `tfsdk:"tags"`
+	Template     types.String   `tfsdk:"template"`
+	Type         types.String   `tfsdk:"type"`
+	UpdatedAt    types.String   `tfsdk:"updated_at"`
+	UpdatedBy    types.String   `tfsdk:"updated_by"`
 }
 
 func (r *CustomVariableResource) Metadata(ctx context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
@@ -62,14 +60,17 @@ func (r *CustomVariableResource) Schema(ctx context.Context, req resource.Schema
 	resp.Schema = schema.Schema{
 		MarkdownDescription: "CustomVariable Resource",
 		Attributes: map[string]schema.Attribute{
-			"config": schema.SingleNestedAttribute{
+			"config": schema.StringAttribute{
 				Computed: true,
 				Optional: true,
-				PlanModifiers: []planmodifier.Object{
-					objectplanmodifier.RequiresReplaceIfConfigured(),
-					speakeasy_objectplanmodifier.SuppressDiff(speakeasy_objectplanmodifier.ExplicitSuppress),
+				PlanModifiers: []planmodifier.String{
+					stringplanmodifier.RequiresReplaceIfConfigured(),
+					speakeasy_stringplanmodifier.SuppressDiff(speakeasy_stringplanmodifier.ExplicitSuppress),
 				},
-				Description: `Variable configuration. Requires replacement if changed.`,
+				Description: `Requires replacement if changed.; Parsed as JSON.`,
+				Validators: []validator.String{
+					validators.IsValidJSON(),
+				},
 			},
 			"created_at": schema.StringAttribute{
 				Computed: true,

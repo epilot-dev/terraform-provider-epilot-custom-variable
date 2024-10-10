@@ -3,7 +3,7 @@
 package provider
 
 import (
-	tfTypes "github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/provider/types"
+	"encoding/json"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -47,10 +47,6 @@ func (r *CustomVariableResourceModel) ToSharedCustomVariable() *shared.CustomVar
 	} else {
 		helperLogic = nil
 	}
-	var config *shared.Config
-	if r.Config != nil {
-		config = &shared.Config{}
-	}
 	template := new(string)
 	if !r.Template.IsUnknown() && !r.Template.IsNull() {
 		*template = r.Template.ValueString()
@@ -81,6 +77,10 @@ func (r *CustomVariableResourceModel) ToSharedCustomVariable() *shared.CustomVar
 	} else {
 		updatedBy = nil
 	}
+	var config interface{}
+	if !r.Config.IsUnknown() && !r.Config.IsNull() {
+		_ = json.Unmarshal([]byte(r.Config.ValueString()), &config)
+	}
 	out := shared.CustomVariable{
 		ID:           id,
 		Type:         typeVar,
@@ -89,12 +89,12 @@ func (r *CustomVariableResourceModel) ToSharedCustomVariable() *shared.CustomVar
 		Tags:         tags,
 		HelperParams: helperParams,
 		HelperLogic:  helperLogic,
-		Config:       config,
 		Template:     template,
 		CreatedAt:    createdAt,
 		CreatedBy:    createdBy,
 		UpdatedAt:    updatedAt,
 		UpdatedBy:    updatedBy,
+		Config:       config,
 	}
 	return &out
 }
@@ -106,9 +106,10 @@ func (r *CustomVariableResourceModel) RefreshFromSharedCustomVariable(resp *shar
 			r.Tags = append(r.Tags, types.StringValue(v))
 		}
 		if resp.Config == nil {
-			r.Config = nil
+			r.Config = types.StringNull()
 		} else {
-			r.Config = &tfTypes.Config{}
+			configResult, _ := json.Marshal(resp.Config)
+			r.Config = types.StringValue(string(configResult))
 		}
 		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)

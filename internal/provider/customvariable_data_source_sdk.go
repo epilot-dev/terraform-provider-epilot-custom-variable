@@ -3,7 +3,7 @@
 package provider
 
 import (
-	tfTypes "github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/provider/types"
+	"encoding/json"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/shared"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
@@ -15,9 +15,10 @@ func (r *CustomVariableDataSourceModel) RefreshFromSharedCustomVariable(resp *sh
 			r.Tags = append(r.Tags, types.StringValue(v))
 		}
 		if resp.Config == nil {
-			r.Config = nil
+			r.Config = types.StringNull()
 		} else {
-			r.Config = &tfTypes.Config{}
+			configResult, _ := json.Marshal(resp.Config)
+			r.Config = types.StringValue(string(configResult))
 		}
 		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
