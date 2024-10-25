@@ -17,6 +17,8 @@ jobs:
       speakeasy_version: latest
       openapi_docs: |
         - https://docs.api.epilot.io/template-variables.yaml
+      overlay_docs: |
+        - ./overlay.yaml
       languages: |
         - terraform
       mode: pr

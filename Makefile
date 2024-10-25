@@ -1,7 +1,7 @@
 .PHONY: all docs
 all: speakeasy docs
 
-original.yaml: openapi.yml
+original.yaml:
 	curl https://docs.api.epilot.io/template-variables.yaml > original.yaml
 
 original_modified.yaml: original.yaml overlay.yaml
@@ -18,4 +18,3 @@ speakeasy:
 
 docs:
 	go generate ./...
-
