@@ -23,7 +23,7 @@ actions:
   - target: $["paths"]["/v1/custom-variables/{id}"]["get"]
     update:
       x-speakeasy-entity-operation: CustomVariable#get
-  - target: $["paths"]["/v1/custom-variables/{id}"]["patch"]
+  - target: $["paths"]["/v1/custom-variables/{id}"]["put"]
     update:
       x-speakeasy-entity-operation: CustomVariable#update
   - target: $["paths"]["/v1/custom-variables/{id}"]["delete"]
