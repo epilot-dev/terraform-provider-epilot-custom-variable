@@ -38,7 +38,7 @@ type GetCategoriesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// ok
-	CategoryResults []shared.CategoryResult
+	Classes []shared.CategoryResult
 }
 
 func (o *GetCategoriesResponse) GetContentType() string {
@@ -62,9 +62,9 @@ func (o *GetCategoriesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetCategoriesResponse) GetCategoryResults() []shared.CategoryResult {
+func (o *GetCategoriesResponse) GetClasses() []shared.CategoryResult {
 	if o == nil {
 		return nil
 	}
-	return o.CategoryResults
+	return o.Classes
 }

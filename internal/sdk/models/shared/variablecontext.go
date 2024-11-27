@@ -3,24 +3,17 @@
 package shared
 
 type VariableContext struct {
-	UnsubscribeURL *string        `json:"unsubscribe_url,omitempty"`
-	Main           map[string]any `json:"main,omitempty"`
-	Contact        map[string]any `json:"contact,omitempty"`
 	Brand          map[string]any `json:"brand,omitempty"`
+	Contact        map[string]any `json:"contact,omitempty"`
+	Main           map[string]any `json:"main,omitempty"`
+	UnsubscribeURL *string        `json:"unsubscribe_url,omitempty"`
 }
 
-func (o *VariableContext) GetUnsubscribeURL() *string {
+func (o *VariableContext) GetBrand() map[string]any {
 	if o == nil {
 		return nil
 	}
-	return o.UnsubscribeURL
-}
-
-func (o *VariableContext) GetMain() map[string]any {
-	if o == nil {
-		return nil
-	}
-	return o.Main
+	return o.Brand
 }
 
 func (o *VariableContext) GetContact() map[string]any {
@@ -30,9 +23,16 @@ func (o *VariableContext) GetContact() map[string]any {
 	return o.Contact
 }
 
-func (o *VariableContext) GetBrand() map[string]any {
+func (o *VariableContext) GetMain() map[string]any {
 	if o == nil {
 		return nil
 	}
-	return o.Brand
+	return o.Main
+}
+
+func (o *VariableContext) GetUnsubscribeURL() *string {
+	if o == nil {
+		return nil
+	}
+	return o.UnsubscribeURL
 }

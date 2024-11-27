@@ -2,7 +2,7 @@ terraform {
   required_providers {
     epilot-custom-variable = {
       source  = "epilot-dev/epilot-custom-variable"
-      version = "1.0.2"
+      version = "1.1.2"
     }
   }
 }

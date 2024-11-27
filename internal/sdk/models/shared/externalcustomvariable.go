@@ -3,15 +3,8 @@
 package shared
 
 type ExternalCustomVariable struct {
-	Variable *string `json:"variable,omitempty"`
 	Value    *string `json:"value,omitempty"`
-}
-
-func (o *ExternalCustomVariable) GetVariable() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Variable
+	Variable *string `json:"variable,omitempty"`
 }
 
 func (o *ExternalCustomVariable) GetValue() *string {
@@ -19,4 +12,11 @@ func (o *ExternalCustomVariable) GetValue() *string {
 		return nil
 	}
 	return o.Value
+}
+
+func (o *ExternalCustomVariable) GetVariable() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Variable
 }

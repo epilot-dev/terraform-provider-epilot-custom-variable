@@ -10,12 +10,12 @@ import (
 type GetBluePrintTableConfigResponse struct {
 	// HTTP response content type for this operation
 	ContentType string
+	// Success
+	CustomVariable *shared.CustomVariable
 	// HTTP response status code for this operation
 	StatusCode int
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
-	// Success
-	CustomVariable *shared.CustomVariable
 }
 
 func (o *GetBluePrintTableConfigResponse) GetContentType() string {
@@ -23,6 +23,13 @@ func (o *GetBluePrintTableConfigResponse) GetContentType() string {
 		return ""
 	}
 	return o.ContentType
+}
+
+func (o *GetBluePrintTableConfigResponse) GetCustomVariable() *shared.CustomVariable {
+	if o == nil {
+		return nil
+	}
+	return o.CustomVariable
 }
 
 func (o *GetBluePrintTableConfigResponse) GetStatusCode() int {
@@ -37,11 +44,4 @@ func (o *GetBluePrintTableConfigResponse) GetRawResponse() *http.Response {
 		return nil
 	}
 	return o.RawResponse
-}
-
-func (o *GetBluePrintTableConfigResponse) GetCustomVariable() *shared.CustomVariable {
-	if o == nil {
-		return nil
-	}
-	return o.CustomVariable
 }

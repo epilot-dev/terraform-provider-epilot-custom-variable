@@ -39,18 +39,18 @@ func (e *CustomVariablesSearchParamsType) UnmarshalJSON(data []byte) error {
 }
 
 type CustomVariablesSearchParams struct {
-	// Variable type
-	Type *CustomVariablesSearchParamsType `json:"type,omitempty"`
-	// The tags of custom variable
-	Tags []string `json:"tags,omitempty"`
+	// Fields to return
+	Fields []string `json:"fields,omitempty"`
+	From   *int64   `default:"0" json:"from"`
 	// Search string
 	Query *string `json:"query,omitempty"`
-	From  *int64  `default:"0" json:"from"`
 	Size  *int64  `default:"25" json:"size"`
 	// Sort by field
 	SortBy *string `json:"sort_by,omitempty"`
-	// Fields to return
-	Fields []string `json:"fields,omitempty"`
+	// The tags of custom variable
+	Tags []string `json:"tags,omitempty"`
+	// Variable type
+	Type *CustomVariablesSearchParamsType `json:"type,omitempty"`
 }
 
 func (c CustomVariablesSearchParams) MarshalJSON() ([]byte, error) {
@@ -64,25 +64,11 @@ func (c *CustomVariablesSearchParams) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *CustomVariablesSearchParams) GetType() *CustomVariablesSearchParamsType {
+func (o *CustomVariablesSearchParams) GetFields() []string {
 	if o == nil {
 		return nil
 	}
-	return o.Type
-}
-
-func (o *CustomVariablesSearchParams) GetTags() []string {
-	if o == nil {
-		return nil
-	}
-	return o.Tags
-}
-
-func (o *CustomVariablesSearchParams) GetQuery() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Query
+	return o.Fields
 }
 
 func (o *CustomVariablesSearchParams) GetFrom() *int64 {
@@ -90,6 +76,13 @@ func (o *CustomVariablesSearchParams) GetFrom() *int64 {
 		return nil
 	}
 	return o.From
+}
+
+func (o *CustomVariablesSearchParams) GetQuery() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Query
 }
 
 func (o *CustomVariablesSearchParams) GetSize() *int64 {
@@ -106,9 +99,16 @@ func (o *CustomVariablesSearchParams) GetSortBy() *string {
 	return o.SortBy
 }
 
-func (o *CustomVariablesSearchParams) GetFields() []string {
+func (o *CustomVariablesSearchParams) GetTags() []string {
 	if o == nil {
 		return nil
 	}
-	return o.Fields
+	return o.Tags
+}
+
+func (o *CustomVariablesSearchParams) GetType() *CustomVariablesSearchParamsType {
+	if o == nil {
+		return nil
+	}
+	return o.Type
 }

@@ -15,7 +15,7 @@ type GetCustomVariablesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// Success
-	CustomVariables []shared.CustomVariable
+	Classes []shared.CustomVariable
 }
 
 func (o *GetCustomVariablesResponse) GetContentType() string {
@@ -39,9 +39,9 @@ func (o *GetCustomVariablesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *GetCustomVariablesResponse) GetCustomVariables() []shared.CustomVariable {
+func (o *GetCustomVariablesResponse) GetClasses() []shared.CustomVariable {
 	if o == nil {
 		return nil
 	}
-	return o.CustomVariables
+	return o.Classes
 }

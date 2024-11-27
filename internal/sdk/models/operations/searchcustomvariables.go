@@ -9,16 +9,9 @@ import (
 
 // SearchCustomVariablesResponseBody - Success
 type SearchCustomVariablesResponseBody struct {
-	Results []shared.CustomVariable `json:"results,omitempty"`
 	// Total number of results
-	Hits *int64 `json:"hits,omitempty"`
-}
-
-func (o *SearchCustomVariablesResponseBody) GetResults() []shared.CustomVariable {
-	if o == nil {
-		return nil
-	}
-	return o.Results
+	Hits    *int64                  `json:"hits,omitempty"`
+	Results []shared.CustomVariable `json:"results,omitempty"`
 }
 
 func (o *SearchCustomVariablesResponseBody) GetHits() *int64 {
@@ -26,6 +19,13 @@ func (o *SearchCustomVariablesResponseBody) GetHits() *int64 {
 		return nil
 	}
 	return o.Hits
+}
+
+func (o *SearchCustomVariablesResponseBody) GetResults() []shared.CustomVariable {
+	if o == nil {
+		return nil
+	}
+	return o.Results
 }
 
 type SearchCustomVariablesResponse struct {

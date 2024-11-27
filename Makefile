@@ -10,9 +10,9 @@ original_modified.yaml: original.yaml overlay.yaml
 overlay.yaml:
 	speakeasy overlay compare -s original.yaml -s original_modified.yaml > overlay.yaml
 
-speakeasy:
+speakeasy: original_modified.yaml
 	$(eval TMP := $(shell mktemp -d))
- 	curl https://docs.api.epilot.io/template-variables.yaml > $(TMP)/openapi.yaml	
+	cp original_modified.yaml $(TMP)/openapi.yaml	
 	speakeasy overlay apply -s $(TMP)/openapi.yaml -o overlay.yaml > $(TMP)/final.yaml
 	speakeasy generate sdk --lang terraform -o . -s $(TMP)/final.yaml
 

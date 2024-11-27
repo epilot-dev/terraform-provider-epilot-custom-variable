@@ -98,7 +98,7 @@ func (r *CustomVariableDataSource) Schema(ctx context.Context, req datasource.Sc
 			},
 			"type": schema.StringAttribute{
 				Computed:    true,
-				Description: `Custom variable type`,
+				Description: `Custom variable type. must be one of ["order_table", "custom", "journey_link"]`,
 			},
 			"updated_at": schema.StringAttribute{
 				Computed:    true,

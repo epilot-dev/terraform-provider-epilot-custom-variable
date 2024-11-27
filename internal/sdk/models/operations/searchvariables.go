@@ -9,14 +9,14 @@ import (
 )
 
 type SearchVariablesRequestBody struct {
-	TemplateType shared.TemplateType `json:"template_type"`
-	// Search string
-	Query string `json:"query"`
-	From  *int64 `default:"0" json:"from"`
-	Size  *int64 `default:"25" json:"size"`
-	// 2-letter language code (ISO 639-1)
-	Lang          *string  `default:"de" json:"lang"`
 	EntitySchemas []string `json:"entity_schemas,omitempty"`
+	From          *int64   `default:"0" json:"from"`
+	// 2-letter language code (ISO 639-1)
+	Lang *string `default:"de" json:"lang"`
+	// Search string
+	Query        string              `json:"query"`
+	Size         *int64              `default:"25" json:"size"`
+	TemplateType shared.TemplateType `json:"template_type"`
 }
 
 func (s SearchVariablesRequestBody) MarshalJSON() ([]byte, error) {
@@ -30,18 +30,11 @@ func (s *SearchVariablesRequestBody) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (o *SearchVariablesRequestBody) GetTemplateType() shared.TemplateType {
+func (o *SearchVariablesRequestBody) GetEntitySchemas() []string {
 	if o == nil {
-		return shared.TemplateType("")
+		return nil
 	}
-	return o.TemplateType
-}
-
-func (o *SearchVariablesRequestBody) GetQuery() string {
-	if o == nil {
-		return ""
-	}
-	return o.Query
+	return o.EntitySchemas
 }
 
 func (o *SearchVariablesRequestBody) GetFrom() *int64 {
@@ -51,13 +44,6 @@ func (o *SearchVariablesRequestBody) GetFrom() *int64 {
 	return o.From
 }
 
-func (o *SearchVariablesRequestBody) GetSize() *int64 {
-	if o == nil {
-		return nil
-	}
-	return o.Size
-}
-
 func (o *SearchVariablesRequestBody) GetLang() *string {
 	if o == nil {
 		return nil
@@ -65,11 +51,25 @@ func (o *SearchVariablesRequestBody) GetLang() *string {
 	return o.Lang
 }
 
-func (o *SearchVariablesRequestBody) GetEntitySchemas() []string {
+func (o *SearchVariablesRequestBody) GetQuery() string {
+	if o == nil {
+		return ""
+	}
+	return o.Query
+}
+
+func (o *SearchVariablesRequestBody) GetSize() *int64 {
 	if o == nil {
 		return nil
 	}
-	return o.EntitySchemas
+	return o.Size
+}
+
+func (o *SearchVariablesRequestBody) GetTemplateType() shared.TemplateType {
+	if o == nil {
+		return shared.TemplateType("")
+	}
+	return o.TemplateType
 }
 
 type SearchVariablesResponse struct {
@@ -80,7 +80,7 @@ type SearchVariablesResponse struct {
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
 	// ok
-	VariableResults []shared.VariableResult
+	Classes []shared.VariableResult
 }
 
 func (o *SearchVariablesResponse) GetContentType() string {
@@ -104,9 +104,9 @@ func (o *SearchVariablesResponse) GetRawResponse() *http.Response {
 	return o.RawResponse
 }
 
-func (o *SearchVariablesResponse) GetVariableResults() []shared.VariableResult {
+func (o *SearchVariablesResponse) GetClasses() []shared.VariableResult {
 	if o == nil {
 		return nil
 	}
-	return o.VariableResults
+	return o.Classes
 }

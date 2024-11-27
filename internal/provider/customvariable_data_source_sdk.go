@@ -28,9 +28,9 @@ func (r *CustomVariableDataSourceModel) RefreshFromSharedCustomVariable(resp *sh
 			r.HelperParams = append(r.HelperParams, types.StringValue(v))
 		}
 		r.ID = types.StringPointerValue(resp.ID)
-		r.Key = types.StringPointerValue(resp.Key)
+		r.Key = types.StringValue(resp.Key)
 		r.Name = types.StringPointerValue(resp.Name)
-		r.Template = types.StringPointerValue(resp.Template)
+		r.Template = types.StringValue(resp.Template)
 		if resp.Type != nil {
 			r.Type = types.StringValue(string(*resp.Type))
 		} else {

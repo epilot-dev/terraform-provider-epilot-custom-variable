@@ -7,17 +7,17 @@ import (
 	"fmt"
 )
 
-type Type string
+type VariableResultType string
 
 const (
-	TypeSimple  Type = "simple"
-	TypePartial Type = "partial"
+	VariableResultTypeSimple  VariableResultType = "simple"
+	VariableResultTypePartial VariableResultType = "partial"
 )
 
-func (e Type) ToPointer() *Type {
+func (e VariableResultType) ToPointer() *VariableResultType {
 	return &e
 }
-func (e *Type) UnmarshalJSON(data []byte) error {
+func (e *VariableResultType) UnmarshalJSON(data []byte) error {
 	var v string
 	if err := json.Unmarshal(data, &v); err != nil {
 		return err
@@ -26,37 +26,30 @@ func (e *Type) UnmarshalJSON(data []byte) error {
 	case "simple":
 		fallthrough
 	case "partial":
-		*e = Type(v)
+		*e = VariableResultType(v)
 		return nil
 	default:
-		return fmt.Errorf("invalid value for Type: %v", v)
+		return fmt.Errorf("invalid value for VariableResultType: %v", v)
 	}
 }
 
 type VariableResult struct {
-	Type *Type `json:"type,omitempty"`
-	// Payload for the QR data
-	Qrdata *string `json:"qrdata,omitempty"`
+	// Variable description
+	Description *string `json:"description,omitempty"`
 	// Variable group
 	Group *string `json:"group,omitempty"`
 	// The value which is used to insert to template
 	Insert *string `json:"insert,omitempty"`
-	// Variable description
-	Description *string `json:"description,omitempty"`
+	// Payload for the QR data
+	Qrdata *string             `json:"qrdata,omitempty"`
+	Type   *VariableResultType `json:"type,omitempty"`
 }
 
-func (o *VariableResult) GetType() *Type {
+func (o *VariableResult) GetDescription() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Type
-}
-
-func (o *VariableResult) GetQrdata() *string {
-	if o == nil {
-		return nil
-	}
-	return o.Qrdata
+	return o.Description
 }
 
 func (o *VariableResult) GetGroup() *string {
@@ -73,9 +66,16 @@ func (o *VariableResult) GetInsert() *string {
 	return o.Insert
 }
 
-func (o *VariableResult) GetDescription() *string {
+func (o *VariableResult) GetQrdata() *string {
 	if o == nil {
 		return nil
 	}
-	return o.Description
+	return o.Qrdata
+}
+
+func (o *VariableResult) GetType() *VariableResultType {
+	if o == nil {
+		return nil
+	}
+	return o.Type
 }

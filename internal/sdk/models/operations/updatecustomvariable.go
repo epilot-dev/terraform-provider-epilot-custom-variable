@@ -8,9 +8,16 @@ import (
 )
 
 type UpdateCustomVariableRequest struct {
+	CustomVariable *shared.CustomVariableInput `request:"mediaType=application/json"`
 	// Custom variable ID
-	ID             string                 `pathParam:"style=simple,explode=false,name=id"`
-	CustomVariable *shared.CustomVariable `request:"mediaType=application/json"`
+	ID string `pathParam:"style=simple,explode=false,name=id"`
+}
+
+func (o *UpdateCustomVariableRequest) GetCustomVariable() *shared.CustomVariableInput {
+	if o == nil {
+		return nil
+	}
+	return o.CustomVariable
 }
 
 func (o *UpdateCustomVariableRequest) GetID() string {
@@ -20,22 +27,15 @@ func (o *UpdateCustomVariableRequest) GetID() string {
 	return o.ID
 }
 
-func (o *UpdateCustomVariableRequest) GetCustomVariable() *shared.CustomVariable {
-	if o == nil {
-		return nil
-	}
-	return o.CustomVariable
-}
-
 type UpdateCustomVariableResponse struct {
 	// HTTP response content type for this operation
 	ContentType string
+	// Success
+	CustomVariable *shared.CustomVariable
 	// HTTP response status code for this operation
 	StatusCode int
 	// Raw HTTP response; suitable for custom response parsing
 	RawResponse *http.Response
-	// Success
-	CustomVariable *shared.CustomVariable
 }
 
 func (o *UpdateCustomVariableResponse) GetContentType() string {
@@ -43,6 +43,13 @@ func (o *UpdateCustomVariableResponse) GetContentType() string {
 		return ""
 	}
 	return o.ContentType
+}
+
+func (o *UpdateCustomVariableResponse) GetCustomVariable() *shared.CustomVariable {
+	if o == nil {
+		return nil
+	}
+	return o.CustomVariable
 }
 
 func (o *UpdateCustomVariableResponse) GetStatusCode() int {
@@ -57,11 +64,4 @@ func (o *UpdateCustomVariableResponse) GetRawResponse() *http.Response {
 		return nil
 	}
 	return o.RawResponse
-}
-
-func (o *UpdateCustomVariableResponse) GetCustomVariable() *shared.CustomVariable {
-	if o == nil {
-		return nil
-	}
-	return o.CustomVariable
 }
