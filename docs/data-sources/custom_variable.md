@@ -36,6 +36,6 @@ data "epilot-custom-variable_custom_variable" "my_customvariable" {
 - `name` (String) Custom variable name
 - `tags` (List of String) The tags of custom variable
 - `template` (String) Handlebar template that used to generate the variable content
-- `type` (String) Custom variable type. must be one of ["order_table", "custom", "journey_link"]
+- `type` (String) Custom variable type
 - `updated_at` (String) Last update time
 - `updated_by` (String) Updated by

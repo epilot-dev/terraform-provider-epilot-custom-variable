@@ -8,7 +8,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-func (r *CustomVariableResourceModel) ToSharedCustomVariableInput() *shared.CustomVariableInput {
+func (r *CustomVariableResourceModel) ToSharedCustomVariable() *shared.CustomVariable {
 	var tags []string = []string{}
 	for _, tagsItem := range r.Tags {
 		tags = append(tags, tagsItem.ValueString())
@@ -16,6 +16,18 @@ func (r *CustomVariableResourceModel) ToSharedCustomVariableInput() *shared.Cust
 	var config interface{}
 	if !r.Config.IsUnknown() && !r.Config.IsNull() {
 		_ = json.Unmarshal([]byte(r.Config.ValueString()), &config)
+	}
+	createdAt := new(string)
+	if !r.CreatedAt.IsUnknown() && !r.CreatedAt.IsNull() {
+		*createdAt = r.CreatedAt.ValueString()
+	} else {
+		createdAt = nil
+	}
+	createdBy := new(string)
+	if !r.CreatedBy.IsUnknown() && !r.CreatedBy.IsNull() {
+		*createdBy = r.CreatedBy.ValueString()
+	} else {
+		createdBy = nil
 	}
 	helperLogic := new(string)
 	if !r.HelperLogic.IsUnknown() && !r.HelperLogic.IsNull() {
@@ -27,33 +39,62 @@ func (r *CustomVariableResourceModel) ToSharedCustomVariableInput() *shared.Cust
 	for _, helperParamsItem := range r.HelperParams {
 		helperParams = append(helperParams, helperParamsItem.ValueString())
 	}
-	var key string
-	key = r.Key.ValueString()
-
+	id := new(string)
+	if !r.ID.IsUnknown() && !r.ID.IsNull() {
+		*id = r.ID.ValueString()
+	} else {
+		id = nil
+	}
+	key := new(string)
+	if !r.Key.IsUnknown() && !r.Key.IsNull() {
+		*key = r.Key.ValueString()
+	} else {
+		key = nil
+	}
 	name := new(string)
 	if !r.Name.IsUnknown() && !r.Name.IsNull() {
 		*name = r.Name.ValueString()
 	} else {
 		name = nil
 	}
-	var template string
-	template = r.Template.ValueString()
-
+	template := new(string)
+	if !r.Template.IsUnknown() && !r.Template.IsNull() {
+		*template = r.Template.ValueString()
+	} else {
+		template = nil
+	}
 	typeVar := new(shared.Type)
 	if !r.Type.IsUnknown() && !r.Type.IsNull() {
 		*typeVar = shared.Type(r.Type.ValueString())
 	} else {
 		typeVar = nil
 	}
-	out := shared.CustomVariableInput{
+	updatedAt := new(string)
+	if !r.UpdatedAt.IsUnknown() && !r.UpdatedAt.IsNull() {
+		*updatedAt = r.UpdatedAt.ValueString()
+	} else {
+		updatedAt = nil
+	}
+	updatedBy := new(string)
+	if !r.UpdatedBy.IsUnknown() && !r.UpdatedBy.IsNull() {
+		*updatedBy = r.UpdatedBy.ValueString()
+	} else {
+		updatedBy = nil
+	}
+	out := shared.CustomVariable{
 		Tags:         tags,
 		Config:       config,
+		CreatedAt:    createdAt,
+		CreatedBy:    createdBy,
 		HelperLogic:  helperLogic,
 		HelperParams: helperParams,
+		ID:           id,
 		Key:          key,
 		Name:         name,
 		Template:     template,
 		Type:         typeVar,
+		UpdatedAt:    updatedAt,
+		UpdatedBy:    updatedBy,
 	}
 	return &out
 }
@@ -78,9 +119,9 @@ func (r *CustomVariableResourceModel) RefreshFromSharedCustomVariable(resp *shar
 			r.HelperParams = append(r.HelperParams, types.StringValue(v))
 		}
 		r.ID = types.StringPointerValue(resp.ID)
-		r.Key = types.StringValue(resp.Key)
+		r.Key = types.StringPointerValue(resp.Key)
 		r.Name = types.StringPointerValue(resp.Name)
-		r.Template = types.StringValue(resp.Template)
+		r.Template = types.StringPointerValue(resp.Template)
 		if resp.Type != nil {
 			r.Type = types.StringValue(string(*resp.Type))
 		} else {

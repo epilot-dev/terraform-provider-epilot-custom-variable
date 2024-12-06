@@ -65,10 +65,12 @@ func (r *CustomVariableResource) Schema(ctx context.Context, req resource.Schema
 			},
 			"created_at": schema.StringAttribute{
 				Computed:    true,
+				Optional:    true,
 				Description: `Creation time`,
 			},
 			"created_by": schema.StringAttribute{
 				Computed:    true,
+				Optional:    true,
 				Description: `Created by`,
 			},
 			"helper_logic": schema.StringAttribute{
@@ -84,10 +86,12 @@ func (r *CustomVariableResource) Schema(ctx context.Context, req resource.Schema
 			},
 			"id": schema.StringAttribute{
 				Computed:    true,
-				Description: `Custom vairable ID`,
+				Optional:    true,
+				Description: `ID`,
 			},
 			"key": schema.StringAttribute{
-				Required:    true,
+				Computed:    true,
+				Optional:    true,
 				Description: `The key which is used for Handlebar variable syntax {{"{{"}}key{{"}}"}}`,
 			},
 			"name": schema.StringAttribute{
@@ -102,7 +106,8 @@ func (r *CustomVariableResource) Schema(ctx context.Context, req resource.Schema
 				Description: `The tags of custom variable`,
 			},
 			"template": schema.StringAttribute{
-				Required:    true,
+				Computed:    true,
+				Optional:    true,
 				Description: `Handlebar template that used to generate the variable content`,
 			},
 			"type": schema.StringAttribute{
@@ -119,10 +124,12 @@ func (r *CustomVariableResource) Schema(ctx context.Context, req resource.Schema
 			},
 			"updated_at": schema.StringAttribute{
 				Computed:    true,
+				Optional:    true,
 				Description: `Last update time`,
 			},
 			"updated_by": schema.StringAttribute{
 				Computed:    true,
+				Optional:    true,
 				Description: `Updated by`,
 			},
 		},
@@ -167,7 +174,7 @@ func (r *CustomVariableResource) Create(ctx context.Context, req resource.Create
 		return
 	}
 
-	request := data.ToSharedCustomVariableInput()
+	request := data.ToSharedCustomVariable()
 	res, err := r.client.CustomVariables.CreateCustomVariable(ctx, request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
@@ -263,7 +270,7 @@ func (r *CustomVariableResource) Update(ctx context.Context, req resource.Update
 		return
 	}
 
-	customVariable := data.ToSharedCustomVariableInput()
+	customVariable := data.ToSharedCustomVariable()
 	var id string
 	id = data.ID.ValueString()
 
