@@ -7,6 +7,10 @@ import (
 	"fmt"
 )
 
+// Config - Variable configuration
+type Config struct {
+}
+
 // Type - Custom variable type
 type Type string
 
@@ -39,8 +43,9 @@ func (e *Type) UnmarshalJSON(data []byte) error {
 
 type CustomVariable struct {
 	// The tags of custom variable
-	Tags   []string `json:"_tags,omitempty"`
-	Config any      `json:"config,omitempty"`
+	Tags []string `json:"_tags,omitempty"`
+	// Variable configuration
+	Config *Config `json:"config,omitempty"`
 	// Creation time
 	CreatedAt *string `json:"created_at,omitempty"`
 	// Created by
@@ -52,11 +57,11 @@ type CustomVariable struct {
 	// ID
 	ID *string `json:"id,omitempty"`
 	// The key which is used for Handlebar variable syntax {{"{{"}}key}}
-	Key *string `json:"key,omitempty"`
+	Key string `json:"key"`
 	// Custom variable name
 	Name *string `json:"name,omitempty"`
 	// Handlebar template that used to generate the variable content
-	Template *string `json:"template,omitempty"`
+	Template string `json:"template"`
 	// Custom variable type
 	Type *Type `json:"type,omitempty"`
 	// Last update time
@@ -72,7 +77,7 @@ func (o *CustomVariable) GetTags() []string {
 	return o.Tags
 }
 
-func (o *CustomVariable) GetConfig() any {
+func (o *CustomVariable) GetConfig() *Config {
 	if o == nil {
 		return nil
 	}
@@ -114,9 +119,9 @@ func (o *CustomVariable) GetID() *string {
 	return o.ID
 }
 
-func (o *CustomVariable) GetKey() *string {
+func (o *CustomVariable) GetKey() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Key
 }
@@ -128,9 +133,9 @@ func (o *CustomVariable) GetName() *string {
 	return o.Name
 }
 
-func (o *CustomVariable) GetTemplate() *string {
+func (o *CustomVariable) GetTemplate() string {
 	if o == nil {
-		return nil
+		return ""
 	}
 	return o.Template
 }
@@ -154,4 +159,88 @@ func (o *CustomVariable) GetUpdatedBy() *string {
 		return nil
 	}
 	return o.UpdatedBy
+}
+
+type CustomVariableInput struct {
+	// The tags of custom variable
+	Tags []string `json:"_tags,omitempty"`
+	// Variable configuration
+	Config *Config `json:"config,omitempty"`
+	// The helper function logic
+	HelperLogic *string `json:"helper_logic,omitempty"`
+	// The helper function parameter's names
+	HelperParams []string `json:"helper_params,omitempty"`
+	// ID
+	ID *string `json:"id,omitempty"`
+	// The key which is used for Handlebar variable syntax {{"{{"}}key}}
+	Key string `json:"key"`
+	// Custom variable name
+	Name *string `json:"name,omitempty"`
+	// Handlebar template that used to generate the variable content
+	Template string `json:"template"`
+	// Custom variable type
+	Type *Type `json:"type,omitempty"`
+}
+
+func (o *CustomVariableInput) GetTags() []string {
+	if o == nil {
+		return nil
+	}
+	return o.Tags
+}
+
+func (o *CustomVariableInput) GetConfig() *Config {
+	if o == nil {
+		return nil
+	}
+	return o.Config
+}
+
+func (o *CustomVariableInput) GetHelperLogic() *string {
+	if o == nil {
+		return nil
+	}
+	return o.HelperLogic
+}
+
+func (o *CustomVariableInput) GetHelperParams() []string {
+	if o == nil {
+		return nil
+	}
+	return o.HelperParams
+}
+
+func (o *CustomVariableInput) GetID() *string {
+	if o == nil {
+		return nil
+	}
+	return o.ID
+}
+
+func (o *CustomVariableInput) GetKey() string {
+	if o == nil {
+		return ""
+	}
+	return o.Key
+}
+
+func (o *CustomVariableInput) GetName() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Name
+}
+
+func (o *CustomVariableInput) GetTemplate() string {
+	if o == nil {
+		return ""
+	}
+	return o.Template
+}
+
+func (o *CustomVariableInput) GetType() *Type {
+	if o == nil {
+		return nil
+	}
+	return o.Type
 }

@@ -8,12 +8,12 @@ import (
 )
 
 type UpdateCustomVariableRequest struct {
-	CustomVariable *shared.CustomVariable `request:"mediaType=application/json"`
+	CustomVariable *shared.CustomVariableInput `request:"mediaType=application/json"`
 	// Custom variable ID
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *UpdateCustomVariableRequest) GetCustomVariable() *shared.CustomVariable {
+func (o *UpdateCustomVariableRequest) GetCustomVariable() *shared.CustomVariableInput {
 	if o == nil {
 		return nil
 	}
