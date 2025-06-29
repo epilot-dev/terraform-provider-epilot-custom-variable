@@ -6,14 +6,14 @@ import (
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/internal/utils"
 )
 
-// ContextData - If context data is avaialble, this data will be used for variable replace.
+// ContextData - If context data is available, this data will be used for variable replace.
 type ContextData struct {
 }
 
 type VariableParameters struct {
 	// Brand ID
 	BrandID *float64 `json:"brand_id,omitempty"`
-	// If context data is avaialble, this data will be used for variable replace.
+	// If context data is available, this data will be used for variable replace.
 	ContextData *ContextData `json:"context_data,omitempty"`
 	// Custom variables with specified values form other services.
 	CustomVariables []ExternalCustomVariable `json:"custom_variables,omitempty"`
