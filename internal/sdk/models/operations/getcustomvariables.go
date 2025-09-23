@@ -18,30 +18,30 @@ type GetCustomVariablesResponse struct {
 	Classes []shared.CustomVariable
 }
 
-func (o *GetCustomVariablesResponse) GetContentType() string {
-	if o == nil {
+func (g *GetCustomVariablesResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetCustomVariablesResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetCustomVariablesResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetCustomVariablesResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetCustomVariablesResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
+	return g.RawResponse
 }
 
-func (o *GetCustomVariablesResponse) GetClasses() []shared.CustomVariable {
-	if o == nil {
+func (g *GetCustomVariablesResponse) GetClasses() []shared.CustomVariable {
+	if g == nil {
 		return nil
 	}
-	return o.Classes
+	return g.Classes
 }

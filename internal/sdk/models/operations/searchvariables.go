@@ -24,52 +24,52 @@ func (s SearchVariablesRequestBody) MarshalJSON() ([]byte, error) {
 }
 
 func (s *SearchVariablesRequestBody) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &s, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &s, "", false, []string{"query", "template_type"}); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *SearchVariablesRequestBody) GetEntitySchemas() []string {
-	if o == nil {
+func (s *SearchVariablesRequestBody) GetEntitySchemas() []string {
+	if s == nil {
 		return nil
 	}
-	return o.EntitySchemas
+	return s.EntitySchemas
 }
 
-func (o *SearchVariablesRequestBody) GetFrom() *int64 {
-	if o == nil {
+func (s *SearchVariablesRequestBody) GetFrom() *int64 {
+	if s == nil {
 		return nil
 	}
-	return o.From
+	return s.From
 }
 
-func (o *SearchVariablesRequestBody) GetLang() *string {
-	if o == nil {
+func (s *SearchVariablesRequestBody) GetLang() *string {
+	if s == nil {
 		return nil
 	}
-	return o.Lang
+	return s.Lang
 }
 
-func (o *SearchVariablesRequestBody) GetQuery() string {
-	if o == nil {
+func (s *SearchVariablesRequestBody) GetQuery() string {
+	if s == nil {
 		return ""
 	}
-	return o.Query
+	return s.Query
 }
 
-func (o *SearchVariablesRequestBody) GetSize() *int64 {
-	if o == nil {
+func (s *SearchVariablesRequestBody) GetSize() *int64 {
+	if s == nil {
 		return nil
 	}
-	return o.Size
+	return s.Size
 }
 
-func (o *SearchVariablesRequestBody) GetTemplateType() shared.TemplateType {
-	if o == nil {
+func (s *SearchVariablesRequestBody) GetTemplateType() shared.TemplateType {
+	if s == nil {
 		return shared.TemplateType("")
 	}
-	return o.TemplateType
+	return s.TemplateType
 }
 
 type SearchVariablesResponse struct {
@@ -83,30 +83,30 @@ type SearchVariablesResponse struct {
 	Classes []shared.VariableResult
 }
 
-func (o *SearchVariablesResponse) GetContentType() string {
-	if o == nil {
+func (s *SearchVariablesResponse) GetContentType() string {
+	if s == nil {
 		return ""
 	}
-	return o.ContentType
+	return s.ContentType
 }
 
-func (o *SearchVariablesResponse) GetStatusCode() int {
-	if o == nil {
+func (s *SearchVariablesResponse) GetStatusCode() int {
+	if s == nil {
 		return 0
 	}
-	return o.StatusCode
+	return s.StatusCode
 }
 
-func (o *SearchVariablesResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (s *SearchVariablesResponse) GetRawResponse() *http.Response {
+	if s == nil {
 		return nil
 	}
-	return o.RawResponse
+	return s.RawResponse
 }
 
-func (o *SearchVariablesResponse) GetClasses() []shared.VariableResult {
-	if o == nil {
+func (s *SearchVariablesResponse) GetClasses() []shared.VariableResult {
+	if s == nil {
 		return nil
 	}
-	return o.Classes
+	return s.Classes
 }

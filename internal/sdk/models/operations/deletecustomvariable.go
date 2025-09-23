@@ -11,11 +11,11 @@ type DeleteCustomVariableRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *DeleteCustomVariableRequest) GetID() string {
-	if o == nil {
+func (d *DeleteCustomVariableRequest) GetID() string {
+	if d == nil {
 		return ""
 	}
-	return o.ID
+	return d.ID
 }
 
 type DeleteCustomVariableResponse struct {
@@ -27,23 +27,23 @@ type DeleteCustomVariableResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *DeleteCustomVariableResponse) GetContentType() string {
-	if o == nil {
+func (d *DeleteCustomVariableResponse) GetContentType() string {
+	if d == nil {
 		return ""
 	}
-	return o.ContentType
+	return d.ContentType
 }
 
-func (o *DeleteCustomVariableResponse) GetStatusCode() int {
-	if o == nil {
+func (d *DeleteCustomVariableResponse) GetStatusCode() int {
+	if d == nil {
 		return 0
 	}
-	return o.StatusCode
+	return d.StatusCode
 }
 
-func (o *DeleteCustomVariableResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (d *DeleteCustomVariableResponse) GetRawResponse() *http.Response {
+	if d == nil {
 		return nil
 	}
-	return o.RawResponse
+	return d.RawResponse
 }

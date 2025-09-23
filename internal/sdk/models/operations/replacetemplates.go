@@ -12,18 +12,18 @@ type ReplaceTemplatesRequestBody struct {
 	Parameters *shared.VariableParameters `json:"parameters,omitempty"`
 }
 
-func (o *ReplaceTemplatesRequestBody) GetInputs() []string {
-	if o == nil {
+func (r *ReplaceTemplatesRequestBody) GetInputs() []string {
+	if r == nil {
 		return nil
 	}
-	return o.Inputs
+	return r.Inputs
 }
 
-func (o *ReplaceTemplatesRequestBody) GetParameters() *shared.VariableParameters {
-	if o == nil {
+func (r *ReplaceTemplatesRequestBody) GetParameters() *shared.VariableParameters {
+	if r == nil {
 		return nil
 	}
-	return o.Parameters
+	return r.Parameters
 }
 
 // ReplaceTemplatesResponseBody - ok
@@ -31,11 +31,11 @@ type ReplaceTemplatesResponseBody struct {
 	Outputs []string `json:"outputs,omitempty"`
 }
 
-func (o *ReplaceTemplatesResponseBody) GetOutputs() []string {
-	if o == nil {
+func (r *ReplaceTemplatesResponseBody) GetOutputs() []string {
+	if r == nil {
 		return nil
 	}
-	return o.Outputs
+	return r.Outputs
 }
 
 type ReplaceTemplatesResponse struct {
@@ -49,30 +49,30 @@ type ReplaceTemplatesResponse struct {
 	Object *ReplaceTemplatesResponseBody
 }
 
-func (o *ReplaceTemplatesResponse) GetContentType() string {
-	if o == nil {
+func (r *ReplaceTemplatesResponse) GetContentType() string {
+	if r == nil {
 		return ""
 	}
-	return o.ContentType
+	return r.ContentType
 }
 
-func (o *ReplaceTemplatesResponse) GetStatusCode() int {
-	if o == nil {
+func (r *ReplaceTemplatesResponse) GetStatusCode() int {
+	if r == nil {
 		return 0
 	}
-	return o.StatusCode
+	return r.StatusCode
 }
 
-func (o *ReplaceTemplatesResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (r *ReplaceTemplatesResponse) GetRawResponse() *http.Response {
+	if r == nil {
 		return nil
 	}
-	return o.RawResponse
+	return r.RawResponse
 }
 
-func (o *ReplaceTemplatesResponse) GetObject() *ReplaceTemplatesResponseBody {
-	if o == nil {
+func (r *ReplaceTemplatesResponse) GetObject() *ReplaceTemplatesResponseBody {
+	if r == nil {
 		return nil
 	}
-	return o.Object
+	return r.Object
 }
