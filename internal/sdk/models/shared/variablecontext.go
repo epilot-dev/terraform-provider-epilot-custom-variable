@@ -9,30 +9,30 @@ type VariableContext struct {
 	UnsubscribeURL *string        `json:"unsubscribe_url,omitempty"`
 }
 
-func (o *VariableContext) GetBrand() map[string]any {
-	if o == nil {
+func (v *VariableContext) GetBrand() map[string]any {
+	if v == nil {
 		return nil
 	}
-	return o.Brand
+	return v.Brand
 }
 
-func (o *VariableContext) GetContact() map[string]any {
-	if o == nil {
+func (v *VariableContext) GetContact() map[string]any {
+	if v == nil {
 		return nil
 	}
-	return o.Contact
+	return v.Contact
 }
 
-func (o *VariableContext) GetMain() map[string]any {
-	if o == nil {
+func (v *VariableContext) GetMain() map[string]any {
+	if v == nil {
 		return nil
 	}
-	return o.Main
+	return v.Main
 }
 
-func (o *VariableContext) GetUnsubscribeURL() *string {
-	if o == nil {
+func (v *VariableContext) GetUnsubscribeURL() *string {
+	if v == nil {
 		return nil
 	}
-	return o.UnsubscribeURL
+	return v.UnsubscribeURL
 }

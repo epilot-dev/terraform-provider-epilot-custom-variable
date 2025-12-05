@@ -45,37 +45,37 @@ type VariableResult struct {
 	Type   *VariableResultType `json:"type,omitempty"`
 }
 
-func (o *VariableResult) GetDescription() *string {
-	if o == nil {
+func (v *VariableResult) GetDescription() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Description
+	return v.Description
 }
 
-func (o *VariableResult) GetGroup() *string {
-	if o == nil {
+func (v *VariableResult) GetGroup() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Group
+	return v.Group
 }
 
-func (o *VariableResult) GetInsert() *string {
-	if o == nil {
+func (v *VariableResult) GetInsert() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Insert
+	return v.Insert
 }
 
-func (o *VariableResult) GetQrdata() *string {
-	if o == nil {
+func (v *VariableResult) GetQrdata() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Qrdata
+	return v.Qrdata
 }
 
-func (o *VariableResult) GetType() *VariableResultType {
-	if o == nil {
+func (v *VariableResult) GetType() *VariableResultType {
+	if v == nil {
 		return nil
 	}
-	return o.Type
+	return v.Type
 }

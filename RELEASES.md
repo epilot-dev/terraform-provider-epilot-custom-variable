@@ -15,3 +15,13 @@ Based on:
 - Speakeasy CLI 1.147.0 (2.237.2) https://github.com/speakeasy-api/speakeasy
 ### Generated
 - [terraform v0.4.4] .
+
+## 2025-12-05 00:47:35
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.668.0 (2.770.0) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [terraform v1.3.0] .
+### Releases
+- [Terraform v1.3.0] https://registry.terraform.io/providers/epilot-dev/epilot-custom-variable/1.3.0 - .

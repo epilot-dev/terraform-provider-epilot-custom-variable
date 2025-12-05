@@ -18,30 +18,30 @@ type GetBluePrintTableConfigResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *GetBluePrintTableConfigResponse) GetContentType() string {
-	if o == nil {
+func (g *GetBluePrintTableConfigResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetBluePrintTableConfigResponse) GetCustomVariable() *shared.CustomVariable {
-	if o == nil {
+func (g *GetBluePrintTableConfigResponse) GetCustomVariable() *shared.CustomVariable {
+	if g == nil {
 		return nil
 	}
-	return o.CustomVariable
+	return g.CustomVariable
 }
 
-func (o *GetBluePrintTableConfigResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetBluePrintTableConfigResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetBluePrintTableConfigResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetBluePrintTableConfigResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
+	return g.RawResponse
 }

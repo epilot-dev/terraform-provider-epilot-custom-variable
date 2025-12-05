@@ -11,11 +11,11 @@ type GetVariableContextRequestBody struct {
 	Parameters *shared.VariableParameters `json:"parameters,omitempty"`
 }
 
-func (o *GetVariableContextRequestBody) GetParameters() *shared.VariableParameters {
-	if o == nil {
+func (g *GetVariableContextRequestBody) GetParameters() *shared.VariableParameters {
+	if g == nil {
 		return nil
 	}
-	return o.Parameters
+	return g.Parameters
 }
 
 type GetVariableContextResponse struct {
@@ -29,30 +29,30 @@ type GetVariableContextResponse struct {
 	VariableContext *shared.VariableContext
 }
 
-func (o *GetVariableContextResponse) GetContentType() string {
-	if o == nil {
+func (g *GetVariableContextResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetVariableContextResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetVariableContextResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetVariableContextResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetVariableContextResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
+	return g.RawResponse
 }
 
-func (o *GetVariableContextResponse) GetVariableContext() *shared.VariableContext {
-	if o == nil {
+func (g *GetVariableContextResponse) GetVariableContext() *shared.VariableContext {
+	if g == nil {
 		return nil
 	}
-	return o.VariableContext
+	return g.VariableContext
 }

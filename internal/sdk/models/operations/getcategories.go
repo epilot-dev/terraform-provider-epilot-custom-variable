@@ -17,17 +17,17 @@ func (g GetCategoriesRequest) MarshalJSON() ([]byte, error) {
 }
 
 func (g *GetCategoriesRequest) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &g, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &g, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *GetCategoriesRequest) GetLang() *string {
-	if o == nil {
+func (g *GetCategoriesRequest) GetLang() *string {
+	if g == nil {
 		return nil
 	}
-	return o.Lang
+	return g.Lang
 }
 
 type GetCategoriesResponse struct {
@@ -41,30 +41,30 @@ type GetCategoriesResponse struct {
 	Classes []shared.CategoryResult
 }
 
-func (o *GetCategoriesResponse) GetContentType() string {
-	if o == nil {
+func (g *GetCategoriesResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetCategoriesResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetCategoriesResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetCategoriesResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetCategoriesResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
+	return g.RawResponse
 }
 
-func (o *GetCategoriesResponse) GetClasses() []shared.CategoryResult {
-	if o == nil {
+func (g *GetCategoriesResponse) GetClasses() []shared.CategoryResult {
+	if g == nil {
 		return nil
 	}
-	return o.Classes
+	return g.Classes
 }

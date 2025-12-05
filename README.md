@@ -21,7 +21,7 @@ It has been generated successfully based on your OpenAPI spec. However, it is no
 <!-- Start Summary [summary] -->
 ## Summary
 
-Template Variables API: API to provide variables for email and document templates.
+Template Variables API: This API provides dynamic template processing and variable management, seamless Handlebars template compilation, custom variable operations, and context-aware content generation across email, document templates and snippets.
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
@@ -30,6 +30,7 @@ Template Variables API: API to provide variables for email and document template
 * [epilot-custom-variable](#epilot-custom-variable)
   * [🏗 **Welcome to your new Terraform Provider!** 🏗](#welcome-to-your-new-terraform-provider)
   * [Installation](#installation)
+  * [Authentication](#authentication)
   * [Available Resources and Data Sources](#available-resources-and-data-sources)
   * [Testing the provider locally](#testing-the-provider-locally)
 * [Development](#development)
@@ -47,7 +48,7 @@ terraform {
   required_providers {
     epilot-custom-variable = {
       source  = "epilot-dev/epilot-custom-variable"
-      version = "1.2.0"
+      version = "1.3.0"
     }
   }
 }
@@ -58,15 +59,25 @@ provider "epilot-custom-variable" {
 ```
 <!-- End Installation [installation] -->
 
+<!-- Start Authentication [security] -->
+## Authentication
+
+This provider supports authentication configuration via provider configuration.
+
+Available configuration:
+
+| Provider Attribute | Description |
+|---|---|
+| `epilot_auth` | Authorization header with epilot OAuth2 bearer token. |
+| `epilot_org` | Overrides the target organization. |
+<!-- End Authentication [security] -->
+
 <!-- Start Available Resources and Data Sources [operations] -->
 ## Available Resources and Data Sources
 
 ### Resources
 
-* [epilot-custom-variable_custom_variable](docs/resources/custom_variable.md)
 ### Data Sources
-
-* [epilot-custom-variable_custom_variable](docs/data-sources/custom_variable.md)
 <!-- End Available Resources and Data Sources [operations] -->
 
 <!-- Start Testing the provider locally [usage] -->

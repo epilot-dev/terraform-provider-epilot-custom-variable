@@ -14,18 +14,18 @@ type SearchCustomVariablesResponseBody struct {
 	Results []shared.CustomVariable `json:"results,omitempty"`
 }
 
-func (o *SearchCustomVariablesResponseBody) GetHits() *int64 {
-	if o == nil {
+func (s *SearchCustomVariablesResponseBody) GetHits() *int64 {
+	if s == nil {
 		return nil
 	}
-	return o.Hits
+	return s.Hits
 }
 
-func (o *SearchCustomVariablesResponseBody) GetResults() []shared.CustomVariable {
-	if o == nil {
+func (s *SearchCustomVariablesResponseBody) GetResults() []shared.CustomVariable {
+	if s == nil {
 		return nil
 	}
-	return o.Results
+	return s.Results
 }
 
 type SearchCustomVariablesResponse struct {
@@ -39,30 +39,30 @@ type SearchCustomVariablesResponse struct {
 	Object *SearchCustomVariablesResponseBody
 }
 
-func (o *SearchCustomVariablesResponse) GetContentType() string {
-	if o == nil {
+func (s *SearchCustomVariablesResponse) GetContentType() string {
+	if s == nil {
 		return ""
 	}
-	return o.ContentType
+	return s.ContentType
 }
 
-func (o *SearchCustomVariablesResponse) GetStatusCode() int {
-	if o == nil {
+func (s *SearchCustomVariablesResponse) GetStatusCode() int {
+	if s == nil {
 		return 0
 	}
-	return o.StatusCode
+	return s.StatusCode
 }
 
-func (o *SearchCustomVariablesResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (s *SearchCustomVariablesResponse) GetRawResponse() *http.Response {
+	if s == nil {
 		return nil
 	}
-	return o.RawResponse
+	return s.RawResponse
 }
 
-func (o *SearchCustomVariablesResponse) GetObject() *SearchCustomVariablesResponseBody {
-	if o == nil {
+func (s *SearchCustomVariablesResponse) GetObject() *SearchCustomVariablesResponseBody {
+	if s == nil {
 		return nil
 	}
-	return o.Object
+	return s.Object
 }
