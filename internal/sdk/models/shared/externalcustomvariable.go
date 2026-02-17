@@ -7,16 +7,16 @@ type ExternalCustomVariable struct {
 	Variable *string `json:"variable,omitempty"`
 }
 
-func (o *ExternalCustomVariable) GetValue() *string {
-	if o == nil {
+func (e *ExternalCustomVariable) GetValue() *string {
+	if e == nil {
 		return nil
 	}
-	return o.Value
+	return e.Value
 }
 
-func (o *ExternalCustomVariable) GetVariable() *string {
-	if o == nil {
+func (e *ExternalCustomVariable) GetVariable() *string {
+	if e == nil {
 		return nil
 	}
-	return o.Variable
+	return e.Variable
 }

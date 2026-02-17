@@ -15,6 +15,7 @@ const (
 	CustomVariablesSearchParamsTypeOrderTable  CustomVariablesSearchParamsType = "order_table"
 	CustomVariablesSearchParamsTypeCustom      CustomVariablesSearchParamsType = "custom"
 	CustomVariablesSearchParamsTypeJourneyLink CustomVariablesSearchParamsType = "journey_link"
+	CustomVariablesSearchParamsTypeSnippet     CustomVariablesSearchParamsType = "snippet"
 )
 
 func (e CustomVariablesSearchParamsType) ToPointer() *CustomVariablesSearchParamsType {
@@ -31,6 +32,8 @@ func (e *CustomVariablesSearchParamsType) UnmarshalJSON(data []byte) error {
 	case "custom":
 		fallthrough
 	case "journey_link":
+		fallthrough
+	case "snippet":
 		*e = CustomVariablesSearchParamsType(v)
 		return nil
 	default:
@@ -58,57 +61,57 @@ func (c CustomVariablesSearchParams) MarshalJSON() ([]byte, error) {
 }
 
 func (c *CustomVariablesSearchParams) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &c, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &c, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *CustomVariablesSearchParams) GetFields() []string {
-	if o == nil {
+func (c *CustomVariablesSearchParams) GetFields() []string {
+	if c == nil {
 		return nil
 	}
-	return o.Fields
+	return c.Fields
 }
 
-func (o *CustomVariablesSearchParams) GetFrom() *int64 {
-	if o == nil {
+func (c *CustomVariablesSearchParams) GetFrom() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.From
+	return c.From
 }
 
-func (o *CustomVariablesSearchParams) GetQuery() *string {
-	if o == nil {
+func (c *CustomVariablesSearchParams) GetQuery() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Query
+	return c.Query
 }
 
-func (o *CustomVariablesSearchParams) GetSize() *int64 {
-	if o == nil {
+func (c *CustomVariablesSearchParams) GetSize() *int64 {
+	if c == nil {
 		return nil
 	}
-	return o.Size
+	return c.Size
 }
 
-func (o *CustomVariablesSearchParams) GetSortBy() *string {
-	if o == nil {
+func (c *CustomVariablesSearchParams) GetSortBy() *string {
+	if c == nil {
 		return nil
 	}
-	return o.SortBy
+	return c.SortBy
 }
 
-func (o *CustomVariablesSearchParams) GetTags() []string {
-	if o == nil {
+func (c *CustomVariablesSearchParams) GetTags() []string {
+	if c == nil {
 		return nil
 	}
-	return o.Tags
+	return c.Tags
 }
 
-func (o *CustomVariablesSearchParams) GetType() *CustomVariablesSearchParamsType {
-	if o == nil {
+func (c *CustomVariablesSearchParams) GetType() *CustomVariablesSearchParamsType {
+	if c == nil {
 		return nil
 	}
-	return o.Type
+	return c.Type
 }
