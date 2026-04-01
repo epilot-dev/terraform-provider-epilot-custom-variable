@@ -3,34 +3,44 @@
 package provider
 
 import (
+	"context"
 	"encoding/json"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/operations"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/shared"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-func (r *CustomVariableDataSourceModel) RefreshFromSharedCustomVariable(resp *shared.CustomVariable) {
+func (r *CustomVariableDataSourceModel) RefreshFromSharedCustomVariable(ctx context.Context, resp *shared.CustomVariable) diag.Diagnostics {
+	var diags diag.Diagnostics
+
 	if resp != nil {
-		r.Tags = []types.String{}
+		r.Manifest = make([]types.String, 0, len(resp.Manifest))
+		for _, v := range resp.Manifest {
+			r.Manifest = append(r.Manifest, types.StringValue(v))
+		}
+		r.Tags = make([]types.String, 0, len(resp.Tags))
 		for _, v := range resp.Tags {
 			r.Tags = append(r.Tags, types.StringValue(v))
 		}
 		if resp.Config == nil {
-			r.Config = types.StringNull()
+			r.Config = jsontypes.NewNormalizedNull()
 		} else {
 			configResult, _ := json.Marshal(resp.Config)
-			r.Config = types.StringValue(string(configResult))
+			r.Config = jsontypes.NewNormalizedValue(string(configResult))
 		}
 		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
 		r.HelperLogic = types.StringPointerValue(resp.HelperLogic)
-		r.HelperParams = []types.String{}
+		r.HelperParams = make([]types.String, 0, len(resp.HelperParams))
 		for _, v := range resp.HelperParams {
 			r.HelperParams = append(r.HelperParams, types.StringValue(v))
 		}
 		r.ID = types.StringPointerValue(resp.ID)
-		r.Key = types.StringPointerValue(resp.Key)
+		r.Key = types.StringValue(resp.Key)
 		r.Name = types.StringPointerValue(resp.Name)
-		r.Template = types.StringPointerValue(resp.Template)
+		r.Template = types.StringValue(resp.Template)
 		if resp.Type != nil {
 			r.Type = types.StringValue(string(*resp.Type))
 		} else {
@@ -39,4 +49,19 @@ func (r *CustomVariableDataSourceModel) RefreshFromSharedCustomVariable(resp *sh
 		r.UpdatedAt = types.StringPointerValue(resp.UpdatedAt)
 		r.UpdatedBy = types.StringPointerValue(resp.UpdatedBy)
 	}
+
+	return diags
+}
+
+func (r *CustomVariableDataSourceModel) ToOperationsGetCustomVariableRequest(ctx context.Context) (*operations.GetCustomVariableRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var id string
+	id = r.ID.ValueString()
+
+	out := operations.GetCustomVariableRequest{
+		ID: id,
+	}
+
+	return &out, diags
 }

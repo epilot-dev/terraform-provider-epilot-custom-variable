@@ -18,30 +18,30 @@ type CreateCustomVariableResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *CreateCustomVariableResponse) GetContentType() string {
-	if o == nil {
+func (c *CreateCustomVariableResponse) GetContentType() string {
+	if c == nil {
 		return ""
 	}
-	return o.ContentType
+	return c.ContentType
 }
 
-func (o *CreateCustomVariableResponse) GetCustomVariable() *shared.CustomVariable {
-	if o == nil {
+func (c *CreateCustomVariableResponse) GetCustomVariable() *shared.CustomVariable {
+	if c == nil {
 		return nil
 	}
-	return o.CustomVariable
+	return c.CustomVariable
 }
 
-func (o *CreateCustomVariableResponse) GetStatusCode() int {
-	if o == nil {
+func (c *CreateCustomVariableResponse) GetStatusCode() int {
+	if c == nil {
 		return 0
 	}
-	return o.StatusCode
+	return c.StatusCode
 }
 
-func (o *CreateCustomVariableResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (c *CreateCustomVariableResponse) GetRawResponse() *http.Response {
+	if c == nil {
 		return nil
 	}
-	return o.RawResponse
+	return c.RawResponse
 }

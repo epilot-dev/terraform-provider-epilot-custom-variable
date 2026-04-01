@@ -3,125 +3,44 @@
 package provider
 
 import (
+	"context"
 	"encoding/json"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/operations"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/shared"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
+	"github.com/hashicorp/terraform-plugin-framework/diag"
 	"github.com/hashicorp/terraform-plugin-framework/types"
 )
 
-func (r *CustomVariableResourceModel) ToSharedCustomVariable() *shared.CustomVariable {
-	var tags []string = []string{}
-	for _, tagsItem := range r.Tags {
-		tags = append(tags, tagsItem.ValueString())
-	}
-	var config interface{}
-	if !r.Config.IsUnknown() && !r.Config.IsNull() {
-		_ = json.Unmarshal([]byte(r.Config.ValueString()), &config)
-	}
-	createdAt := new(string)
-	if !r.CreatedAt.IsUnknown() && !r.CreatedAt.IsNull() {
-		*createdAt = r.CreatedAt.ValueString()
-	} else {
-		createdAt = nil
-	}
-	createdBy := new(string)
-	if !r.CreatedBy.IsUnknown() && !r.CreatedBy.IsNull() {
-		*createdBy = r.CreatedBy.ValueString()
-	} else {
-		createdBy = nil
-	}
-	helperLogic := new(string)
-	if !r.HelperLogic.IsUnknown() && !r.HelperLogic.IsNull() {
-		*helperLogic = r.HelperLogic.ValueString()
-	} else {
-		helperLogic = nil
-	}
-	var helperParams []string = []string{}
-	for _, helperParamsItem := range r.HelperParams {
-		helperParams = append(helperParams, helperParamsItem.ValueString())
-	}
-	id := new(string)
-	if !r.ID.IsUnknown() && !r.ID.IsNull() {
-		*id = r.ID.ValueString()
-	} else {
-		id = nil
-	}
-	key := new(string)
-	if !r.Key.IsUnknown() && !r.Key.IsNull() {
-		*key = r.Key.ValueString()
-	} else {
-		key = nil
-	}
-	name := new(string)
-	if !r.Name.IsUnknown() && !r.Name.IsNull() {
-		*name = r.Name.ValueString()
-	} else {
-		name = nil
-	}
-	template := new(string)
-	if !r.Template.IsUnknown() && !r.Template.IsNull() {
-		*template = r.Template.ValueString()
-	} else {
-		template = nil
-	}
-	typeVar := new(shared.Type)
-	if !r.Type.IsUnknown() && !r.Type.IsNull() {
-		*typeVar = shared.Type(r.Type.ValueString())
-	} else {
-		typeVar = nil
-	}
-	updatedAt := new(string)
-	if !r.UpdatedAt.IsUnknown() && !r.UpdatedAt.IsNull() {
-		*updatedAt = r.UpdatedAt.ValueString()
-	} else {
-		updatedAt = nil
-	}
-	updatedBy := new(string)
-	if !r.UpdatedBy.IsUnknown() && !r.UpdatedBy.IsNull() {
-		*updatedBy = r.UpdatedBy.ValueString()
-	} else {
-		updatedBy = nil
-	}
-	out := shared.CustomVariable{
-		Tags:         tags,
-		Config:       config,
-		CreatedAt:    createdAt,
-		CreatedBy:    createdBy,
-		HelperLogic:  helperLogic,
-		HelperParams: helperParams,
-		ID:           id,
-		Key:          key,
-		Name:         name,
-		Template:     template,
-		Type:         typeVar,
-		UpdatedAt:    updatedAt,
-		UpdatedBy:    updatedBy,
-	}
-	return &out
-}
+func (r *CustomVariableResourceModel) RefreshFromSharedCustomVariable(ctx context.Context, resp *shared.CustomVariable) diag.Diagnostics {
+	var diags diag.Diagnostics
 
-func (r *CustomVariableResourceModel) RefreshFromSharedCustomVariable(resp *shared.CustomVariable) {
 	if resp != nil {
-		r.Tags = []types.String{}
+		r.Manifest = make([]types.String, 0, len(resp.Manifest))
+		for _, v := range resp.Manifest {
+			r.Manifest = append(r.Manifest, types.StringValue(v))
+		}
+		r.Tags = make([]types.String, 0, len(resp.Tags))
 		for _, v := range resp.Tags {
 			r.Tags = append(r.Tags, types.StringValue(v))
 		}
 		if resp.Config == nil {
-			r.Config = types.StringNull()
+			r.Config = jsontypes.NewNormalizedNull()
 		} else {
 			configResult, _ := json.Marshal(resp.Config)
-			r.Config = types.StringValue(string(configResult))
+			r.Config = jsontypes.NewNormalizedValue(string(configResult))
 		}
 		r.CreatedAt = types.StringPointerValue(resp.CreatedAt)
 		r.CreatedBy = types.StringPointerValue(resp.CreatedBy)
 		r.HelperLogic = types.StringPointerValue(resp.HelperLogic)
-		r.HelperParams = []types.String{}
+		r.HelperParams = make([]types.String, 0, len(resp.HelperParams))
 		for _, v := range resp.HelperParams {
 			r.HelperParams = append(r.HelperParams, types.StringValue(v))
 		}
 		r.ID = types.StringPointerValue(resp.ID)
-		r.Key = types.StringPointerValue(resp.Key)
+		r.Key = types.StringValue(resp.Key)
 		r.Name = types.StringPointerValue(resp.Name)
-		r.Template = types.StringPointerValue(resp.Template)
+		r.Template = types.StringValue(resp.Template)
 		if resp.Type != nil {
 			r.Type = types.StringValue(string(*resp.Type))
 		} else {
@@ -130,4 +49,118 @@ func (r *CustomVariableResourceModel) RefreshFromSharedCustomVariable(resp *shar
 		r.UpdatedAt = types.StringPointerValue(resp.UpdatedAt)
 		r.UpdatedBy = types.StringPointerValue(resp.UpdatedBy)
 	}
+
+	return diags
+}
+
+func (r *CustomVariableResourceModel) ToOperationsDeleteCustomVariableRequest(ctx context.Context) (*operations.DeleteCustomVariableRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var id string
+	id = r.ID.ValueString()
+
+	out := operations.DeleteCustomVariableRequest{
+		ID: id,
+	}
+
+	return &out, diags
+}
+
+func (r *CustomVariableResourceModel) ToOperationsGetCustomVariableRequest(ctx context.Context) (*operations.GetCustomVariableRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	var id string
+	id = r.ID.ValueString()
+
+	out := operations.GetCustomVariableRequest{
+		ID: id,
+	}
+
+	return &out, diags
+}
+
+func (r *CustomVariableResourceModel) ToOperationsUpdateCustomVariableRequest(ctx context.Context) (*operations.UpdateCustomVariableRequest, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	customVariable, customVariableDiags := r.ToSharedCustomVariableInput(ctx)
+	diags.Append(customVariableDiags...)
+
+	if diags.HasError() {
+		return nil, diags
+	}
+
+	var id string
+	id = r.ID.ValueString()
+
+	out := operations.UpdateCustomVariableRequest{
+		CustomVariable: customVariable,
+		ID:             id,
+	}
+
+	return &out, diags
+}
+
+func (r *CustomVariableResourceModel) ToSharedCustomVariableInput(ctx context.Context) (*shared.CustomVariableInput, diag.Diagnostics) {
+	var diags diag.Diagnostics
+
+	manifest := make([]string, 0, len(r.Manifest))
+	for manifestIndex := range r.Manifest {
+		manifest = append(manifest, r.Manifest[manifestIndex].ValueString())
+	}
+	tags := make([]string, 0, len(r.Tags))
+	for tagsIndex := range r.Tags {
+		tags = append(tags, r.Tags[tagsIndex].ValueString())
+	}
+	var config interface{}
+	if !r.Config.IsUnknown() && !r.Config.IsNull() {
+		_ = json.Unmarshal([]byte(r.Config.ValueString()), &config)
+	}
+	helperLogic := new(string)
+	if !r.HelperLogic.IsUnknown() && !r.HelperLogic.IsNull() {
+		*helperLogic = r.HelperLogic.ValueString()
+	} else {
+		helperLogic = nil
+	}
+	helperParams := make([]string, 0, len(r.HelperParams))
+	for helperParamsIndex := range r.HelperParams {
+		helperParams = append(helperParams, r.HelperParams[helperParamsIndex].ValueString())
+	}
+	id := new(string)
+	if !r.ID.IsUnknown() && !r.ID.IsNull() {
+		*id = r.ID.ValueString()
+	} else {
+		id = nil
+	}
+	var key string
+	key = r.Key.ValueString()
+
+	name := new(string)
+	if !r.Name.IsUnknown() && !r.Name.IsNull() {
+		*name = r.Name.ValueString()
+	} else {
+		name = nil
+	}
+	var template string
+	template = r.Template.ValueString()
+
+	typeVar := new(shared.Type)
+	if !r.Type.IsUnknown() && !r.Type.IsNull() {
+		*typeVar = shared.Type(r.Type.ValueString())
+	} else {
+		typeVar = nil
+	}
+	out := shared.CustomVariableInput{
+		Manifest:     manifest,
+		Tags:         tags,
+		Config:       config,
+		HelperLogic:  helperLogic,
+		HelperParams: helperParams,
+		ID:           id,
+		Key:          key,
+		Name:         name,
+		Template:     template,
+		Type:         typeVar,
+	}
+
+	return &out, diags
 }

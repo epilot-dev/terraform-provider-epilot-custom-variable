@@ -6,14 +6,14 @@ import (
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/internal/utils"
 )
 
-// ContextData - If context data is avaialble, this data will be used for variable replace.
+// ContextData - If context data is available, this data will be used for variable replace.
 type ContextData struct {
 }
 
 type VariableParameters struct {
 	// Brand ID
 	BrandID *float64 `json:"brand_id,omitempty"`
-	// If context data is avaialble, this data will be used for variable replace.
+	// If context data is available, this data will be used for variable replace.
 	ContextData *ContextData `json:"context_data,omitempty"`
 	// Custom variables with specified values form other services.
 	CustomVariables []ExternalCustomVariable `json:"custom_variables,omitempty"`
@@ -21,6 +21,8 @@ type VariableParameters struct {
 	Language *string `default:"de" json:"language"`
 	// The main entity ID. Use main entity in order to use the variable without schema slug prefix - or just pass directly to other object ID.
 	MainEntityID *string `json:"main_entity_id,omitempty"`
+	// The Id of email template
+	TemplateID *string `json:"template_id,omitempty"`
 	// The name of email template
 	TemplateName *string `json:"template_name,omitempty"`
 	// The tags of email template
@@ -39,85 +41,92 @@ func (v VariableParameters) MarshalJSON() ([]byte, error) {
 }
 
 func (v *VariableParameters) UnmarshalJSON(data []byte) error {
-	if err := utils.UnmarshalJSON(data, &v, "", false, false); err != nil {
+	if err := utils.UnmarshalJSON(data, &v, "", false, nil); err != nil {
 		return err
 	}
 	return nil
 }
 
-func (o *VariableParameters) GetBrandID() *float64 {
-	if o == nil {
+func (v *VariableParameters) GetBrandID() *float64 {
+	if v == nil {
 		return nil
 	}
-	return o.BrandID
+	return v.BrandID
 }
 
-func (o *VariableParameters) GetContextData() *ContextData {
-	if o == nil {
+func (v *VariableParameters) GetContextData() *ContextData {
+	if v == nil {
 		return nil
 	}
-	return o.ContextData
+	return v.ContextData
 }
 
-func (o *VariableParameters) GetCustomVariables() []ExternalCustomVariable {
-	if o == nil {
+func (v *VariableParameters) GetCustomVariables() []ExternalCustomVariable {
+	if v == nil {
 		return nil
 	}
-	return o.CustomVariables
+	return v.CustomVariables
 }
 
-func (o *VariableParameters) GetLanguage() *string {
-	if o == nil {
+func (v *VariableParameters) GetLanguage() *string {
+	if v == nil {
 		return nil
 	}
-	return o.Language
+	return v.Language
 }
 
-func (o *VariableParameters) GetMainEntityID() *string {
-	if o == nil {
+func (v *VariableParameters) GetMainEntityID() *string {
+	if v == nil {
 		return nil
 	}
-	return o.MainEntityID
+	return v.MainEntityID
 }
 
-func (o *VariableParameters) GetTemplateName() *string {
-	if o == nil {
+func (v *VariableParameters) GetTemplateID() *string {
+	if v == nil {
 		return nil
 	}
-	return o.TemplateName
+	return v.TemplateID
 }
 
-func (o *VariableParameters) GetTemplateTags() []string {
-	if o == nil {
+func (v *VariableParameters) GetTemplateName() *string {
+	if v == nil {
 		return nil
 	}
-	return o.TemplateTags
+	return v.TemplateName
 }
 
-func (o *VariableParameters) GetTemplateType() TemplateType {
-	if o == nil {
+func (v *VariableParameters) GetTemplateTags() []string {
+	if v == nil {
+		return nil
+	}
+	return v.TemplateTags
+}
+
+func (v *VariableParameters) GetTemplateType() TemplateType {
+	if v == nil {
 		return TemplateType("")
 	}
-	return o.TemplateType
+	return v.TemplateType
 }
 
-func (o *VariableParameters) GetUserID() *string {
-	if o == nil {
+func (v *VariableParameters) GetUserID() *string {
+	if v == nil {
 		return nil
 	}
-	return o.UserID
+	return v.UserID
 }
 
-func (o *VariableParameters) GetUserOrgID() *string {
-	if o == nil {
+func (v *VariableParameters) GetUserOrgID() *string {
+	if v == nil {
 		return nil
 	}
-	return o.UserOrgID
+	return v.UserOrgID
 }
 
-func (o *VariableParameters) GetVariablesVersion() *string {
-	if o == nil {
+func (v *VariableParameters) GetVariablesVersion() *string {
+	if v == nil {
 		return nil
 	}
-	return o.VariablesVersion
+	return v.VariablesVersion
 }

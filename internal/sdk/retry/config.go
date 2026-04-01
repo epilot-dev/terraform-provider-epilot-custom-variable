@@ -20,6 +20,9 @@ type BackoffStrategy struct {
 
 // Config configures a retry policy.
 type Config struct {
+	// Strategy sets the algorithm to use for a retry loop. It can be one of:
+	//   - "backoff": retry with exponential backoff and random jitter.
+	//   - "none" or "": disables retries.
 	Strategy              string
 	Backoff               *BackoffStrategy
 	RetryConnectionErrors bool
@@ -111,7 +114,7 @@ func retryIntervalFromResponse(res *http.Response) time.Duration {
 
 	parsedDate, err := time.Parse(time.RFC1123, retryVal)
 	if err == nil {
-		delta := parsedDate.Sub(time.Now())
+		delta := time.Until(parsedDate)
 		if delta < 0 {
 			return 0
 		} else {

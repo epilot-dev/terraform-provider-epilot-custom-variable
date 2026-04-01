@@ -6,7 +6,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk"
-	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/operations"
+	"github.com/hashicorp/terraform-plugin-framework-jsontypes/jsontypes"
 	"github.com/hashicorp/terraform-plugin-framework/datasource"
 	"github.com/hashicorp/terraform-plugin-framework/datasource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -23,24 +23,26 @@ func NewCustomVariableDataSource() datasource.DataSource {
 
 // CustomVariableDataSource is the data source implementation.
 type CustomVariableDataSource struct {
+	// Provider configured SDK client.
 	client *sdk.SDK
 }
 
 // CustomVariableDataSourceModel describes the data model.
 type CustomVariableDataSourceModel struct {
-	Config       types.String   `tfsdk:"config"`
-	CreatedAt    types.String   `tfsdk:"created_at"`
-	CreatedBy    types.String   `tfsdk:"created_by"`
-	HelperLogic  types.String   `tfsdk:"helper_logic"`
-	HelperParams []types.String `tfsdk:"helper_params"`
-	ID           types.String   `tfsdk:"id"`
-	Key          types.String   `tfsdk:"key"`
-	Name         types.String   `tfsdk:"name"`
-	Tags         []types.String `tfsdk:"tags"`
-	Template     types.String   `tfsdk:"template"`
-	Type         types.String   `tfsdk:"type"`
-	UpdatedAt    types.String   `tfsdk:"updated_at"`
-	UpdatedBy    types.String   `tfsdk:"updated_by"`
+	Config       jsontypes.Normalized `tfsdk:"config"`
+	CreatedAt    types.String         `tfsdk:"created_at"`
+	CreatedBy    types.String         `tfsdk:"created_by"`
+	HelperLogic  types.String         `tfsdk:"helper_logic"`
+	HelperParams []types.String       `tfsdk:"helper_params"`
+	ID           types.String         `tfsdk:"id"`
+	Key          types.String         `tfsdk:"key"`
+	Manifest     []types.String       `tfsdk:"manifest"`
+	Name         types.String         `tfsdk:"name"`
+	Tags         []types.String       `tfsdk:"tags"`
+	Template     types.String         `tfsdk:"template"`
+	Type         types.String         `tfsdk:"type"`
+	UpdatedAt    types.String         `tfsdk:"updated_at"`
+	UpdatedBy    types.String         `tfsdk:"updated_by"`
 }
 
 // Metadata returns the data source type name.
@@ -55,6 +57,7 @@ func (r *CustomVariableDataSource) Schema(ctx context.Context, req datasource.Sc
 
 		Attributes: map[string]schema.Attribute{
 			"config": schema.StringAttribute{
+				CustomType:  jsontypes.NormalizedType{},
 				Computed:    true,
 				Description: `Parsed as JSON.`,
 			},
@@ -77,11 +80,16 @@ func (r *CustomVariableDataSource) Schema(ctx context.Context, req datasource.Sc
 			},
 			"id": schema.StringAttribute{
 				Required:    true,
-				Description: `Custom vairable ID`,
+				Description: `ID`,
 			},
 			"key": schema.StringAttribute{
 				Computed:    true,
-				Description: `The key which is used for Handlebar variable syntax {{"{{"}}key{{"}}"}}`,
+				Description: `The key which is used for Handlebar variable syntax {{key}}`,
+			},
+			"manifest": schema.ListAttribute{
+				Computed:    true,
+				ElementType: types.StringType,
+				Description: `The manifest IDs associated with this custom variable`,
 			},
 			"name": schema.StringAttribute{
 				Computed:    true,
@@ -150,13 +158,13 @@ func (r *CustomVariableDataSource) Read(ctx context.Context, req datasource.Read
 		return
 	}
 
-	var id string
-	id = data.ID.ValueString()
+	request, requestDiags := data.ToOperationsGetCustomVariableRequest(ctx)
+	resp.Diagnostics.Append(requestDiags...)
 
-	request := operations.GetCustomVariableRequest{
-		ID: id,
+	if resp.Diagnostics.HasError() {
+		return
 	}
-	res, err := r.client.CustomVariables.GetCustomVariable(ctx, request)
+	res, err := r.client.CustomVariables.GetCustomVariable(ctx, *request)
 	if err != nil {
 		resp.Diagnostics.AddError("failure to invoke API", err.Error())
 		if res != nil && res.RawResponse != nil {
@@ -168,10 +176,6 @@ func (r *CustomVariableDataSource) Read(ctx context.Context, req datasource.Read
 		resp.Diagnostics.AddError("unexpected response from API", fmt.Sprintf("%v", res))
 		return
 	}
-	if res.StatusCode == 404 {
-		resp.State.RemoveResource(ctx)
-		return
-	}
 	if res.StatusCode != 200 {
 		resp.Diagnostics.AddError(fmt.Sprintf("unexpected response from API. Got an unexpected response code %v", res.StatusCode), debugResponse(res.RawResponse))
 		return
@@ -180,7 +184,11 @@ func (r *CustomVariableDataSource) Read(ctx context.Context, req datasource.Read
 		resp.Diagnostics.AddError("unexpected response from API. Got an unexpected response body", debugResponse(res.RawResponse))
 		return
 	}
-	data.RefreshFromSharedCustomVariable(res.CustomVariable)
+	resp.Diagnostics.Append(data.RefreshFromSharedCustomVariable(ctx, res.CustomVariable)...)
+
+	if resp.Diagnostics.HasError() {
+		return
+	}
 
 	// Save updated data into Terraform state
 	resp.Diagnostics.Append(resp.State.Set(ctx, &data)...)

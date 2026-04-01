@@ -12,11 +12,11 @@ type GetCustomVariableRequest struct {
 	ID string `pathParam:"style=simple,explode=false,name=id"`
 }
 
-func (o *GetCustomVariableRequest) GetID() string {
-	if o == nil {
+func (g *GetCustomVariableRequest) GetID() string {
+	if g == nil {
 		return ""
 	}
-	return o.ID
+	return g.ID
 }
 
 type GetCustomVariableResponse struct {
@@ -30,30 +30,30 @@ type GetCustomVariableResponse struct {
 	RawResponse *http.Response
 }
 
-func (o *GetCustomVariableResponse) GetContentType() string {
-	if o == nil {
+func (g *GetCustomVariableResponse) GetContentType() string {
+	if g == nil {
 		return ""
 	}
-	return o.ContentType
+	return g.ContentType
 }
 
-func (o *GetCustomVariableResponse) GetCustomVariable() *shared.CustomVariable {
-	if o == nil {
+func (g *GetCustomVariableResponse) GetCustomVariable() *shared.CustomVariable {
+	if g == nil {
 		return nil
 	}
-	return o.CustomVariable
+	return g.CustomVariable
 }
 
-func (o *GetCustomVariableResponse) GetStatusCode() int {
-	if o == nil {
+func (g *GetCustomVariableResponse) GetStatusCode() int {
+	if g == nil {
 		return 0
 	}
-	return o.StatusCode
+	return g.StatusCode
 }
 
-func (o *GetCustomVariableResponse) GetRawResponse() *http.Response {
-	if o == nil {
+func (g *GetCustomVariableResponse) GetRawResponse() *http.Response {
+	if g == nil {
 		return nil
 	}
-	return o.RawResponse
+	return g.RawResponse
 }

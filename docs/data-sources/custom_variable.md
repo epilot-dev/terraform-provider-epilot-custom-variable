@@ -23,7 +23,7 @@ data "epilot-custom-variable_custom_variable" "my_customvariable" {
 
 ### Required
 
-- `id` (String) Custom vairable ID
+- `id` (String) ID
 
 ### Read-Only
 
@@ -32,7 +32,8 @@ data "epilot-custom-variable_custom_variable" "my_customvariable" {
 - `created_by` (String) Created by
 - `helper_logic` (String) The helper function logic
 - `helper_params` (List of String) The helper function parameter's names
-- `key` (String) The key which is used for Handlebar variable syntax {{"{{"}}key{{"}}"}}
+- `key` (String) The key which is used for Handlebar variable syntax {{key}}
+- `manifest` (List of String) The manifest IDs associated with this custom variable
 - `name` (String) Custom variable name
 - `tags` (List of String) The tags of custom variable
 - `template` (String) Handlebar template that used to generate the variable content

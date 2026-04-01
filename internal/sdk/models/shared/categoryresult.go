@@ -7,16 +7,16 @@ type CategoryResult struct {
 	Description *string `json:"description,omitempty"`
 }
 
-func (o *CategoryResult) GetCategory() *string {
-	if o == nil {
+func (c *CategoryResult) GetCategory() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Category
+	return c.Category
 }
 
-func (o *CategoryResult) GetDescription() *string {
-	if o == nil {
+func (c *CategoryResult) GetDescription() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Description
+	return c.Description
 }

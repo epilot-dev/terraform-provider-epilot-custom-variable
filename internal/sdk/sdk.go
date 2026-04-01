@@ -2,9 +2,12 @@
 
 package sdk
 
+// Generated from OpenAPI doc version 1.1.0 and generator version 2.879.1
+
 import (
 	"context"
 	"fmt"
+	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/internal/config"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/internal/hooks"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/internal/utils"
 	"github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk/models/shared"
@@ -16,9 +19,11 @@ import (
 // ServerList contains the list of servers available to the SDK
 var ServerList = []string{
 	"https://template-variables-api.sls.epilot.io",
+	// Production server
+	"https://template-variables-api.dev.sls.epilot.io",
 }
 
-// HTTPClient provides an interface for suplying the SDK with a custom HTTP client
+// HTTPClient provides an interface for supplying the SDK with a custom HTTP client
 type HTTPClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
@@ -44,41 +49,21 @@ func Float64(f float64) *float64 { return &f }
 // Pointer provides a helper function to return a pointer to a type
 func Pointer[T any](v T) *T { return &v }
 
-type sdkConfiguration struct {
-	Client            HTTPClient
-	Security          func(context.Context) (interface{}, error)
-	ServerURL         string
-	ServerIndex       int
-	Language          string
-	OpenAPIDocVersion string
-	SDKVersion        string
-	GenVersion        string
-	UserAgent         string
-	RetryConfig       *retry.Config
-	Hooks             *hooks.Hooks
-	Timeout           *time.Duration
-}
-
-func (c *sdkConfiguration) GetServerDetails() (string, map[string]string) {
-	if c.ServerURL != "" {
-		return c.ServerURL, nil
-	}
-
-	return ServerList[c.ServerIndex], nil
-}
-
-// SDK - Template Variables API: API to provide variables for email and document templates.
+// SDK - Template Variables API: This API provides dynamic template processing and variable management, seamless Handlebars template compilation, custom variable operations, and context-aware content generation across email, document templates and snippets.
 type SDK struct {
+	SDKVersion string
+	// Custom Variables Operations
 	CustomVariables *CustomVariables
-	// Variables
-	Variables *Variables
+	// Template-based Operations
+	Templates *Templates
 
-	sdkConfiguration sdkConfiguration
+	sdkConfiguration config.SDKConfiguration
+	hooks            *hooks.Hooks
 }
 
 type SDKOption func(*SDK)
 
-// WithServerURL allows the overriding of the default server URL
+// WithServerURL allows providing an alternative server URL
 func WithServerURL(serverURL string) SDKOption {
 	return func(sdk *SDK) {
 		sdk.sdkConfiguration.ServerURL = serverURL
@@ -146,14 +131,12 @@ func WithTimeout(timeout time.Duration) SDKOption {
 // New creates a new instance of the SDK with the provided options
 func New(opts ...SDKOption) *SDK {
 	sdk := &SDK{
-		sdkConfiguration: sdkConfiguration{
-			Language:          "go",
-			OpenAPIDocVersion: "1.0.0",
-			SDKVersion:        "0.0.1",
-			GenVersion:        "2.472.1",
-			UserAgent:         "speakeasy-sdk/go 0.0.1 2.472.1 1.0.0 github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk",
-			Hooks:             hooks.New(),
+		SDKVersion: "1.3.0",
+		sdkConfiguration: config.SDKConfiguration{
+			UserAgent:  "speakeasy-sdk/terraform 1.3.0 2.879.1 1.1.0 github.com/epilot-dev/terraform-provider-epilot-custom-variable/internal/sdk",
+			ServerList: ServerList,
 		},
+		hooks: hooks.New(),
 	}
 	for _, opt := range opts {
 		opt(sdk)
@@ -166,14 +149,13 @@ func New(opts ...SDKOption) *SDK {
 
 	currentServerURL, _ := sdk.sdkConfiguration.GetServerDetails()
 	serverURL := currentServerURL
-	serverURL, sdk.sdkConfiguration.Client = sdk.sdkConfiguration.Hooks.SDKInit(currentServerURL, sdk.sdkConfiguration.Client)
-	if serverURL != currentServerURL {
+	serverURL, sdk.sdkConfiguration.Client = sdk.hooks.SDKInit(currentServerURL, sdk.sdkConfiguration.Client)
+	if currentServerURL != serverURL {
 		sdk.sdkConfiguration.ServerURL = serverURL
 	}
 
-	sdk.CustomVariables = newCustomVariables(sdk.sdkConfiguration)
-
-	sdk.Variables = newVariables(sdk.sdkConfiguration)
+	sdk.CustomVariables = newCustomVariables(sdk, sdk.sdkConfiguration, sdk.hooks)
+	sdk.Templates = newTemplates(sdk, sdk.sdkConfiguration, sdk.hooks)
 
 	return sdk
 }

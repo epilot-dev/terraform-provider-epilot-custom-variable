@@ -14,6 +14,7 @@ const (
 	TypeOrderTable  Type = "order_table"
 	TypeCustom      Type = "custom"
 	TypeJourneyLink Type = "journey_link"
+	TypeSnippet     Type = "snippet"
 )
 
 func (e Type) ToPointer() *Type {
@@ -30,6 +31,8 @@ func (e *Type) UnmarshalJSON(data []byte) error {
 	case "custom":
 		fallthrough
 	case "journey_link":
+		fallthrough
+	case "snippet":
 		*e = Type(v)
 		return nil
 	default:
@@ -38,6 +41,8 @@ func (e *Type) UnmarshalJSON(data []byte) error {
 }
 
 type CustomVariable struct {
+	// The manifest IDs associated with this custom variable
+	Manifest []string `json:"_manifest,omitempty"`
 	// The tags of custom variable
 	Tags   []string `json:"_tags,omitempty"`
 	Config any      `json:"config,omitempty"`
@@ -51,12 +56,12 @@ type CustomVariable struct {
 	HelperParams []string `json:"helper_params,omitempty"`
 	// ID
 	ID *string `json:"id,omitempty"`
-	// The key which is used for Handlebar variable syntax {{"{{"}}key}}
-	Key *string `json:"key,omitempty"`
+	// The key which is used for Handlebar variable syntax {{key}}
+	Key string `json:"key"`
 	// Custom variable name
 	Name *string `json:"name,omitempty"`
 	// Handlebar template that used to generate the variable content
-	Template *string `json:"template,omitempty"`
+	Template string `json:"template"`
 	// Custom variable type
 	Type *Type `json:"type,omitempty"`
 	// Last update time
@@ -65,93 +70,192 @@ type CustomVariable struct {
 	UpdatedBy *string `json:"updated_by,omitempty"`
 }
 
-func (o *CustomVariable) GetTags() []string {
-	if o == nil {
+func (c *CustomVariable) GetManifest() []string {
+	if c == nil {
 		return nil
 	}
-	return o.Tags
+	return c.Manifest
 }
 
-func (o *CustomVariable) GetConfig() any {
-	if o == nil {
+func (c *CustomVariable) GetTags() []string {
+	if c == nil {
 		return nil
 	}
-	return o.Config
+	return c.Tags
 }
 
-func (o *CustomVariable) GetCreatedAt() *string {
-	if o == nil {
+func (c *CustomVariable) GetConfig() any {
+	if c == nil {
 		return nil
 	}
-	return o.CreatedAt
+	return c.Config
 }
 
-func (o *CustomVariable) GetCreatedBy() *string {
-	if o == nil {
+func (c *CustomVariable) GetCreatedAt() *string {
+	if c == nil {
 		return nil
 	}
-	return o.CreatedBy
+	return c.CreatedAt
 }
 
-func (o *CustomVariable) GetHelperLogic() *string {
-	if o == nil {
+func (c *CustomVariable) GetCreatedBy() *string {
+	if c == nil {
 		return nil
 	}
-	return o.HelperLogic
+	return c.CreatedBy
 }
 
-func (o *CustomVariable) GetHelperParams() []string {
-	if o == nil {
+func (c *CustomVariable) GetHelperLogic() *string {
+	if c == nil {
 		return nil
 	}
-	return o.HelperParams
+	return c.HelperLogic
 }
 
-func (o *CustomVariable) GetID() *string {
-	if o == nil {
+func (c *CustomVariable) GetHelperParams() []string {
+	if c == nil {
 		return nil
 	}
-	return o.ID
+	return c.HelperParams
 }
 
-func (o *CustomVariable) GetKey() *string {
-	if o == nil {
+func (c *CustomVariable) GetID() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Key
+	return c.ID
 }
 
-func (o *CustomVariable) GetName() *string {
-	if o == nil {
-		return nil
+func (c *CustomVariable) GetKey() string {
+	if c == nil {
+		return ""
 	}
-	return o.Name
+	return c.Key
 }
 
-func (o *CustomVariable) GetTemplate() *string {
-	if o == nil {
+func (c *CustomVariable) GetName() *string {
+	if c == nil {
 		return nil
 	}
-	return o.Template
+	return c.Name
 }
 
-func (o *CustomVariable) GetType() *Type {
-	if o == nil {
-		return nil
+func (c *CustomVariable) GetTemplate() string {
+	if c == nil {
+		return ""
 	}
-	return o.Type
+	return c.Template
 }
 
-func (o *CustomVariable) GetUpdatedAt() *string {
-	if o == nil {
+func (c *CustomVariable) GetType() *Type {
+	if c == nil {
 		return nil
 	}
-	return o.UpdatedAt
+	return c.Type
 }
 
-func (o *CustomVariable) GetUpdatedBy() *string {
-	if o == nil {
+func (c *CustomVariable) GetUpdatedAt() *string {
+	if c == nil {
 		return nil
 	}
-	return o.UpdatedBy
+	return c.UpdatedAt
+}
+
+func (c *CustomVariable) GetUpdatedBy() *string {
+	if c == nil {
+		return nil
+	}
+	return c.UpdatedBy
+}
+
+type CustomVariableInput struct {
+	// The manifest IDs associated with this custom variable
+	Manifest []string `json:"_manifest,omitempty"`
+	// The tags of custom variable
+	Tags   []string `json:"_tags,omitempty"`
+	Config any      `json:"config,omitempty"`
+	// The helper function logic
+	HelperLogic *string `json:"helper_logic,omitempty"`
+	// The helper function parameter's names
+	HelperParams []string `json:"helper_params,omitempty"`
+	// ID
+	ID *string `json:"id,omitempty"`
+	// The key which is used for Handlebar variable syntax {{key}}
+	Key string `json:"key"`
+	// Custom variable name
+	Name *string `json:"name,omitempty"`
+	// Handlebar template that used to generate the variable content
+	Template string `json:"template"`
+	// Custom variable type
+	Type *Type `json:"type,omitempty"`
+}
+
+func (c *CustomVariableInput) GetManifest() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Manifest
+}
+
+func (c *CustomVariableInput) GetTags() []string {
+	if c == nil {
+		return nil
+	}
+	return c.Tags
+}
+
+func (c *CustomVariableInput) GetConfig() any {
+	if c == nil {
+		return nil
+	}
+	return c.Config
+}
+
+func (c *CustomVariableInput) GetHelperLogic() *string {
+	if c == nil {
+		return nil
+	}
+	return c.HelperLogic
+}
+
+func (c *CustomVariableInput) GetHelperParams() []string {
+	if c == nil {
+		return nil
+	}
+	return c.HelperParams
+}
+
+func (c *CustomVariableInput) GetID() *string {
+	if c == nil {
+		return nil
+	}
+	return c.ID
+}
+
+func (c *CustomVariableInput) GetKey() string {
+	if c == nil {
+		return ""
+	}
+	return c.Key
+}
+
+func (c *CustomVariableInput) GetName() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Name
+}
+
+func (c *CustomVariableInput) GetTemplate() string {
+	if c == nil {
+		return ""
+	}
+	return c.Template
+}
+
+func (c *CustomVariableInput) GetType() *Type {
+	if c == nil {
+		return nil
+	}
+	return c.Type
 }
