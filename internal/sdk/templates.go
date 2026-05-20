@@ -122,7 +122,6 @@ func (s *Templates) GetCategories(ctx context.Context, request operations.GetCat
 			Config: retryConfig,
 			StatusCodes: []string{
 				"5XX",
-				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -331,7 +330,6 @@ func (s *Templates) GetVariableContext(ctx context.Context, request *operations.
 			Config: retryConfig,
 			StatusCodes: []string{
 				"5XX",
-				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -539,7 +537,6 @@ func (s *Templates) ReplaceTemplates(ctx context.Context, request *operations.Re
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"5XX",
 				"5XX",
 			},
 		}, func() (*http.Response, error) {
@@ -754,7 +751,6 @@ func (s *Templates) ReplaceTemplatesV2(ctx context.Context, request *operations.
 			Config: retryConfig,
 			StatusCodes: []string{
 				"5XX",
-				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -960,7 +956,6 @@ func (s *Templates) SearchVariables(ctx context.Context, request *operations.Sea
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"5XX",
 				"5XX",
 			},
 		}, func() (*http.Response, error) {
