@@ -125,7 +125,6 @@ func (s *CustomVariables) CreateCustomVariable(ctx context.Context, request *sha
 			Config: retryConfig,
 			StatusCodes: []string{
 				"5XX",
-				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -329,7 +328,6 @@ func (s *CustomVariables) DeleteCustomVariable(ctx context.Context, request oper
 			Config: retryConfig,
 			StatusCodes: []string{
 				"5XX",
-				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -513,7 +511,6 @@ func (s *CustomVariables) GetBluePrintTableConfig(ctx context.Context, opts ...o
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"5XX",
 				"5XX",
 			},
 		}, func() (*http.Response, error) {
@@ -715,7 +712,6 @@ func (s *CustomVariables) GetCustomVariable(ctx context.Context, request operati
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"5XX",
 				"5XX",
 			},
 		}, func() (*http.Response, error) {
@@ -919,7 +915,6 @@ func (s *CustomVariables) GetCustomVariables(ctx context.Context, opts ...operat
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"5XX",
 				"5XX",
 			},
 		}, func() (*http.Response, error) {
@@ -1129,7 +1124,6 @@ func (s *CustomVariables) SearchCustomVariables(ctx context.Context, request *sh
 			Config: retryConfig,
 			StatusCodes: []string{
 				"5XX",
-				"5XX",
 			},
 		}, func() (*http.Response, error) {
 			if req.Body != nil && req.Body != http.NoBody && req.GetBody != nil {
@@ -1337,7 +1331,6 @@ func (s *CustomVariables) UpdateCustomVariable(ctx context.Context, request oper
 		httpRes, err = utils.Retry(ctx, utils.Retries{
 			Config: retryConfig,
 			StatusCodes: []string{
-				"5XX",
 				"5XX",
 			},
 		}, func() (*http.Response, error) {
