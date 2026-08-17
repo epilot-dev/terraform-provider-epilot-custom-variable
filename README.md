@@ -1,3 +1,6 @@
+> [!WARNING]
+> This provider is not anymore updated with the latest epilot API specs.
+
 # epilot-custom-variable
 
 Developer-friendly & type-safe Terraform SDK specifically catered to leverage *epilot-custom-variable* API.
